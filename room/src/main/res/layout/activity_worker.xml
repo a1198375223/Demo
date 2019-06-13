@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/start_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试一下worker"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/final_tv"
+            android:text="final text"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="start worker"
+            android:id="@+id/start_bn" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置网络约束"/>
+        <RadioGroup
+            android:id="@+id/net_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:checkedButton="@id/net_not_required">
+            <RadioButton
+                android:id="@+id/net_not_required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不需要网络(NOT_REQUIRED)"/>
+            <RadioButton
+                android:id="@+id/connected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需要网络任意(CONNECTED)"/>
+            <RadioButton
+                android:id="@+id/unmetered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需要未计量的网络(UNMETERED)"/>
+
+            <RadioButton
+                android:id="@+id/not_roaming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需要非漫游的网络(NOT_ROAMING)"/>
+            <RadioButton
+                android:id="@+id/metered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需要计量的网络(METERED)"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置电池约束 (电池是否处于可以接受的级别)"/>
+        <RadioGroup
+            android:id="@+id/battery_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:checkedButton="@id/battery_false">
+            <RadioButton
+                android:id="@+id/battery_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="true"/>
+            <RadioButton
+                android:id="@+id/battery_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="false"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="是否是充电状态"/>
+        <RadioGroup
+            android:id="@+id/charge_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:checkedButton="@id/charging_false">
+            <RadioButton
+                android:id="@+id/charging_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="true"/>
+            <RadioButton
+                android:id="@+id/charging_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="false"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设备是否处于空闲状态(api>23)"/>
+        <RadioGroup
+            android:id="@+id/idle_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:checkedButton="@id/idle_true">
+            <RadioButton
+                android:id="@+id/idle_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="true"/>
+            <RadioButton
+                android:id="@+id/idle_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="false"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置是否存储空间处于可接受的级别"/>
+        <RadioGroup
+            android:id="@+id/storage_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:checkedButton="@id/storage_false">
+            <RadioButton
+                android:id="@+id/storage_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="true"/>
+            <RadioButton
+                android:id="@+id/storage_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="false"/>
+        </RadioGroup>
+
+
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.commonlibrary">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <application>
+        <provider
+            android:authorities="${applicationId}.workmanager-init"
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            tools:node="remove" />
+
+        <!--适配android7.1(api <= 25)以下 WebView安全浏览原则-->
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="false" />
+
+        <!--停用指标收集功能-->
+        <meta-data
+            android:name="android.webkit.WebView.MetricsOptOut"
+            android:value="true" />
+    </application>
+</manifest>

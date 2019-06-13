@@ -1,0 +1,15 @@
+<resources>
+    <!--id-->
+    <item name="tag_image_uri" type="id" />
+
+    <string name="app_name">Utils</string>
+
+    <string name="content_title">test title text</string>
+    <string name="content">test content text</string>
+
+    <string name="home">home</string>
+    <string name="sdcard">sdcard</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

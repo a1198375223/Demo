@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dagger2" >
+
+    <application>
+        <activity android:name=".DaggerActivity" />
+        <activity android:name=".mvp.task.TasksActivity" />
+    </application>
+</manifest>

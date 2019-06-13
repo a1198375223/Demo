@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/view_dimen_50"
+    android:background="#0f0f0f">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_dimen_3"
+        android:src="@drawable/line_bg"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"/>
+
+    <com.example.androidxdemo.view.dot_progress_view.LineView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/line_view"/>
+
+    <ImageView
+        android:layout_width="@dimen/view_dimen_50"
+        android:layout_height="@dimen/view_dimen_50"
+        android:src="@drawable/grass_edit_dot_iv"
+        android:id="@+id/dot_iv"
+        android:layout_marginStart="@dimen/negative_view_dimen_25"
+        android:layout_marginLeft="@dimen/negative_view_dimen_25"/>
+
+</RelativeLayout>

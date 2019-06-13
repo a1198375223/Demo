@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.room">
+
+    <application>
+        <activity android:name=".RoomActivity" />
+        <activity android:name=".binding.ui.BindingActivity"/>
+        <activity android:name=".binding.ui.BindObservableActivity" />
+        <activity android:name=".binding.ui.BindViewModelActivity" />
+        <activity android:name=".binding.ui.TwoWayActivity" />
+        <activity android:name=".worker.WorkerActivity" />
+        <activity android:name=".worker.BlurActivity" />
+        <activity android:name=".worker.SelectActivity" />
+        <activity android:name=".paged.ui.SearchRepositoriesActivity" />
+    </application>
+</manifest>

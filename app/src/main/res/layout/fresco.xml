@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <!--不支持wrap_content, 但是显示特定的宽高比的时候可以使用wrap_content 即设置viewAspectRatio属性-->
+    <!--fresco:viewAspectRatio="1.33"                   显示固定的高宽比-->
+    <!--fresco:fadeDuration                             淡出淡入的持续时间 单位额ms-->
+    <!--fresco:actualImageScaleType                     实际图像的缩放类型-->
+    <!--fresco:actualImageResource                      实际图像-->
+    <!--fresco:actualImageUri                           实际图像的uri-->
+    <!--fresco:placeholderImage                         占位图-->
+    <!--fresco:placeholderImageScaleType                占位图的缩放类型-->
+    <!--fresco:failureImage                             加载失败的图-->
+    <!--fresco:failureImageScaleType                    加载失败图的缩放类型-->
+    <!--fresco:retryImage                               重试图-->
+    <!--fresco:retryImageScaleType                      重试图的缩放类型-->
+    <!--fresco:progressBarImage                         进度条图-->
+    <!--fresco:progressBarImageScaleType                进度条图的缩放类型-->
+    <!--fresco:progressBarAutoRotateInterval            进度条图的的旋转时间间隔 单位ms-->
+    <!--fresco:backgroundImage                          背景图-->
+    <!--fresco:overlayImage                             前景图-->
+    <!--fresco:pressedStateOverlayImage                 在press状态下的前景图-->
+    <!--fresco:roundAsCircle                            是否是圆角的-->
+    <!--fresco:roundTopStart fresco:roundTopLeft"       左上是是否圆角的-->
+    <!--fresco:roundTopRight fresco:roundTopEnd         右上是否是圆角的-->
+    <!--fresco:roundBottomStart fresco:roundBottomLeft  左下是否是圆角的-->
+    <!--fresco:roundBottomRight fresco:roundBottomEnd   右下是否是圆角的-->
+    <!--fresco:roundedCornerRadius                      圆角的半径-->
+    <!--fresco:roundingBorderWidth                      圆角半径的border宽度-->
+    <!--fresco:roundingBorderColor                      圆角半径的border颜色-->
+    <!--fresco:roundingBorderPadding                    圆角半径的border的padding-->
+    <!--fresco:roundWithOverlayColor                    圆形或者圆角图底下的叠加颜色-->
+
+
+    <!--缩放类型—ScaleType：-->
+    <!--类型               描述-->
+    <!--center             居中，无缩放-->
+    <!--centerCrop         保持宽高比缩小或放大，使得两边都大于或等于显示边界。居中显示。-->
+    <!--focusCrop          同centerCrop, 但居中点不是中点，而是指定的某个点-->
+    <!--centerInside       使两边都在显示边界内，居中显示。如果图尺寸大于显示边界，则保持长宽比缩小图片-->
+    <!--fitCenter          保持宽高比，缩小或者放大，使得图片完全显示在显示边界内。居中显示-->
+    <!--fitStart           同上。但不居中，和显示边界左上对齐-->
+    <!--fitEnd             同fitCenter， 但不居中，和显示边界右下对齐-->
+    <!--fitXY              不保存宽高比，填充满显示边界-->
+    <!--none               如要使用tile mode显示, 需要设置为none-->
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fresco_image"
+        fresco:viewAspectRatio="1.33"
+        fresco:fadeDuration="300"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:actualImageResource="@drawable/down"
+        fresco:actualImageUri="@string/appbar_scrolling_view_behavior"
+        fresco:placeholderImage="@mipmap/ic_launcher"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:failureImage="@mipmap/ic_launcher"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:retryImage="@mipmap/ic_launcher"
+        fresco:retryImageScaleType="centerCrop"
+        fresco:progressBarImage="@mipmap/ic_launcher"
+        fresco:progressBarAutoRotateInterval="300"
+        fresco:progressBarImageScaleType="center"
+        fresco:backgroundImage="@mipmap/ic_launcher"
+        fresco:overlayImage="@mipmap/ic_launcher"
+        fresco:pressedStateOverlayImage="@mipmap/ic_launcher"
+        fresco:roundAsCircle="true"
+        fresco:roundTopStart="true"
+        fresco:roundTopLeft="true"
+        fresco:roundTopEnd="true"
+        fresco:roundTopRight="true"
+        fresco:roundBottomStart="true"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomEnd="true"
+        fresco:roundBottomRight="true"
+        fresco:roundedCornerRadius="3dp"
+        fresco:roundingBorderWidth="3dp"
+        fresco:roundingBorderColor="@color/color_black"
+        fresco:roundingBorderPadding="3dp"
+        fresco:roundWithOverlayColor="@color/color_black_trans_2" />
+
+</RelativeLayout>

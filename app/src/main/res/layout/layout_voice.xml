@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="@dimen/view_dimen_54"
+    android:layout_height="@dimen/view_dimen_54"
+    >
+
+    <View
+        android:id="@+id/voice_1"
+        android:layout_width="@dimen/view_dimen_6"
+        android:layout_height="@dimen/view_dimen_10"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/voice_1"/>
+
+    <View
+        android:id="@+id/voice_2"
+        android:layout_width="@dimen/view_dimen_6"
+        android:layout_height="@dimen/view_dimen_20"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/view_dimen_6"
+        android:background="@drawable/voice_2"/>
+    <View
+        android:id="@+id/voice_3"
+        android:layout_width="@dimen/view_dimen_6"
+        android:layout_height="@dimen/view_dimen_40"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/view_dimen_6"
+        android:background="@drawable/voice_3"/>
+    <View
+        android:id="@+id/voice_4"
+        android:layout_width="@dimen/view_dimen_6"
+        android:layout_height="@dimen/view_dimen_20"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/view_dimen_6"
+        android:background="@drawable/voice_4"/>
+    <View
+        android:id="@+id/voice_5"
+        android:layout_width="@dimen/view_dimen_6"
+        android:layout_height="@dimen/view_dimen_10"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/view_dimen_6"
+        android:background="@drawable/voice_5"/>
+</LinearLayout>

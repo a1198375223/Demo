@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.androidxdemo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+
+    <permission android:name="android.permission.MANAGE_DOCUMENT" />
+
+    <!--请求相机权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".MyApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.main.UtilActivityMain">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.PermissionActivity" />
+        <activity android:name=".activity.image.ImageActivity" />
+        <activity android:name=".activity.view.ViewActivity"/>
+        <activity android:name=".activity.view.dot.DotViewActivity"/>
+        <activity android:name=".activity.view.view_pager.VerticalPagerActivity" />
+        <activity android:name=".activity.image.image_decode.ImageDecoderActivity"/>
+        <activity android:name=".activity.receiver.net.NetWorkActivity" />
+        <activity android:name=".activity.receiver.ReceiverActivity" />
+        <activity android:name=".activity.image.fresco.FrescoActivity" />
+        <activity android:name=".activity.view.color_filter.ColorFilterActivity" />
+        <activity android:name=".activity.receiver.bug.BugReceiverActivity" />
+        <activity android:name=".activity.view.chronometer.ChronometerActivity" />
+        <activity android:name=".activity.view.voice.VoiceActivity" />
+        <activity android:name=".activity.camera.CameraXActivity" />
+        <activity android:name=".activity.camera.CameraActivity" />
+        <activity android:name=".activity.view.view_pager.ViewPager2Activity" />
+
+        <provider
+            android:authorities="com.example.utils.provider.documents"
+            android:name=".provider.MyDocumentProvider"
+            android:grantUriPermissions="true"
+            android:exported="true"
+            android:permission="android.permission.MANAGE_DOCUMENT"
+            android:enabled="@bool/atLeastKitKat">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENT_PROVIDER" />
+            </intent-filter>
+        </provider>
+    </application>
+
+    
+
+</manifest>

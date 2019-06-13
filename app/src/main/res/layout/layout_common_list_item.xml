@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="hello"
+        android:id="@+id/text"
+        android:textSize="16sp"
+        android:paddingTop="@dimen/view_dimen_30"
+        android:paddingLeft="@dimen/view_dimen_30"
+        android:paddingRight="@dimen/view_dimen_30"
+        android:paddingBottom="@dimen/view_dimen_10"
+        android:textColor="@color/color_black_trans_80"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="gggg"
+        android:layout_below="@+id/text"
+        android:textColor="@color/color_black_trans_50"
+        android:paddingTop="@dimen/view_dimen_10"
+        android:paddingLeft="@dimen/view_dimen_30"
+        android:paddingRight="@dimen/view_dimen_30"
+        android:paddingBottom="@dimen/view_dimen_10"
+        android:id="@+id/text1"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/text1"
+        tools:src="@mipmap/ic_launcher"
+        android:id="@+id/image"/>
+
+</RelativeLayout>

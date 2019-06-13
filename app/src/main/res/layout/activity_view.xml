@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:id="@+id/container">
+        <com.example.androidxdemo.view.dot_progress_view.LineView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_dimen_50"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="@dimen/view_dimen_50"
+            android:layout_height="@dimen/view_dimen_50"
+            android:scaleType="fitXY"
+            android:id="@+id/dot"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginStart="@dimen/negative_view_dimen_25"
+            android:layout_marginLeft="@dimen/negative_view_dimen_25"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <com.example.androidxdemo.view.dot_progress_view.LineWithPointView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/trans_bn_1"
+        android:layout_above="@+id/trans_bn_2"
+        android:text="tran 1->100"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/trans_bn_2"
+        android:layout_above="@+id/trans_iv"
+        android:text="tran 2->100->200"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/trans_iv" />
+</RelativeLayout>
