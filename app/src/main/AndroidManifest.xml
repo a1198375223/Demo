@@ -47,6 +47,7 @@
         <activity android:name=".activity.camera.CameraXActivity" />
         <activity android:name=".activity.camera.CameraActivity" />
         <activity android:name=".activity.view.view_pager.ViewPager2Activity" />
+        <activity android:name=".activity.file.FileActivity" />
 
         <provider
             android:authorities="com.example.utils.provider.documents"
