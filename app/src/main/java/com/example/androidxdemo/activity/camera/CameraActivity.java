@@ -19,6 +19,7 @@ import java.util.List;
 public class CameraActivity extends AppCompatActivity {
     private static final String TAG = "CameraActivity";
     public static final int ITEM_CAMERAX = 0;
+    public static final int ITEM_DEMO_CAMERAX = 1;
 
     private RecyclerView mRecyclerView;
     private UtilRecyclerViewAdapter mAdapter;
@@ -31,7 +32,8 @@ public class CameraActivity extends AppCompatActivity {
 
         mData = new ArrayList<>();
         Collections.addAll(mData,
-                "cameraX");
+                "cameraX",
+                "DemoCameraX");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,6 +43,10 @@ public class CameraActivity extends AppCompatActivity {
                 case ITEM_CAMERAX:
                     Intent frescoIntent = new Intent(CameraActivity.this, CameraXActivity.class);
                     startActivity(frescoIntent);
+                    break;
+                case ITEM_DEMO_CAMERAX:
+                    Intent demoIntent = new Intent(CameraActivity.this, DemoCameraXActivity.class);
+                    startActivity(demoIntent);
                     break;
             }
         });

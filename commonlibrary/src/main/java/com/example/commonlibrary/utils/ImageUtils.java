@@ -29,6 +29,7 @@ import java.nio.ByteBuffer;
 
 /**
  * 使用这个工具类来处理bitmap加载和webp图片还有gif图片的加载
+ * 主要是ImageDecoder
  */
 @RequiresApi(api = Build.VERSION_CODES.P)
 public class ImageUtils {

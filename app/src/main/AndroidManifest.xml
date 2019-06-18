@@ -15,6 +15,12 @@
 
     <!--请求相机权限-->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Declare features -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera2" />
 
     <application
         android:name=".MyApplication"
@@ -48,6 +54,7 @@
         <activity android:name=".activity.camera.CameraActivity" />
         <activity android:name=".activity.view.view_pager.ViewPager2Activity" />
         <activity android:name=".activity.file.FileActivity" />
+        <activity android:name=".activity.camera.DemoCameraXActivity" />
 
         <provider
             android:authorities="com.example.utils.provider.documents"
@@ -59,6 +66,18 @@
             <intent-filter>
                 <action android:name="android.content.action.DOCUMENT_PROVIDER" />
             </intent-filter>
+        </provider>
+
+
+        <!-- FileProvider used to share photos with other apps -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
 

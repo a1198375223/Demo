@@ -11,4 +11,10 @@
     <string name="sdcard">sdcard</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="delete_button_alt">删除</string>
+    <string name="delete_dialog">删除当前照片?</string>
+    <string name="delete_title">确认</string>
+    <string name="share_hint">分享页面</string>
 </resources>

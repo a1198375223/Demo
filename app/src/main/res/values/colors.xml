@@ -203,4 +203,7 @@
     <color name="color_08fc82">#08fc82</color>
     <color name="color_00bdff">#00bdff</color>
     <color name="color_08defc">#08defc</color>
+    <color name="icActive">#FFFFFFFF</color>
+    <color name="icFocused">#DDFFFFFF</color>
+    <color name="icPressed">#AAFFFFFF</color>
 </resources>
