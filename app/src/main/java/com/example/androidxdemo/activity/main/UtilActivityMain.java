@@ -14,6 +14,7 @@ import com.example.androidxdemo.activity.camera.CameraActivity;
 import com.example.androidxdemo.activity.image.ImageActivity;
 import com.example.androidxdemo.activity.main.adapter.UtilRecyclerViewAdapter;
 import com.example.androidxdemo.activity.receiver.ReceiverActivity;
+import com.example.androidxdemo.activity.share.ShareActivity;
 import com.example.androidxdemo.activity.view.ViewActivity;
 import com.example.dagger2.DaggerActivity;
 import com.example.room.RoomActivity;
@@ -34,6 +35,7 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_DAGGER2 = 7;
     public static final int ITEM_ROOM = 8;
     public static final int ITEM_CAMERA = 9;
+    public static final int ITEM_SHARE = 10;
 
 
 
@@ -56,7 +58,8 @@ public class UtilActivityMain extends AppCompatActivity {
                 "broadcast",
                 "dagger2测试",
                 "room测试",
-                "相机(CameraX)");
+                "相机(CameraX)",
+                "分享");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -94,6 +97,11 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_CAMERA:
                     Intent cameraIntent = new Intent(UtilActivityMain.this, CameraActivity.class);
                     startActivity(cameraIntent);
+                    break;
+                case ITEM_SHARE:
+                    Intent shareIntent = new Intent(UtilActivityMain.this, ShareActivity.class);
+                    startActivity(shareIntent);
+                    break;
             }
         });
         mAdapter.setData(mData);
