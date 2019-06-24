@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
 
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -27,20 +27,20 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
 
     // support 包依赖
     api 'androidx.appcompat:appcompat:1.1.0-beta01'
     api 'com.android.support:design:28.0.0'
-    api 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
+    api 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
     api 'com.android.support:support-compat:28.0.0'
     api 'com.android.support:support-v4:28.0.0'
     api 'com.android.support:support-annotations:28.0.0'
     api 'com.android.support:support-v13:28.0.0'
     // dagger2依赖
-    api 'com.google.dagger:dagger-android:2.23.1'
-    api 'com.google.dagger:dagger-android-support:2.23.1'
+    api 'com.google.dagger:dagger-android:2.23.2'
+    api 'com.google.dagger:dagger-android-support:2.23.2'
 //    annotationProcessor 'com.google.dagger:dagger-android-processor:2.22.1'
     // 按照官方文档加入上面上个是没用的, 必须添加下面这个才能生成DaggerXXComponent
 //    annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
@@ -51,7 +51,7 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // WorkManager
-    def work_version = "2.1.0-alpha03"
+    def work_version = '2.1.0-beta01'
     // (Java only)
     api "androidx.work:work-runtime:$work_version"
     // Kotlin + coroutines

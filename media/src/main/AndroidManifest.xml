@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.media">
+    <application>
+        <activity android:name=".activity.PlayMovieActivity" />
+        <activity android:name=".VideoActivity" />
+    </application>
+</manifest>

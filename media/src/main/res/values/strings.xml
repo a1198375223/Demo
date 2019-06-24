@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Media</string>
+
+    <string name="play_button_text">Play</string>
+    <string name="stop_button_text">Stop</string>
+    <string name="play_at_60fps">Play at 60fps</string>
+    <string name="loop_play">循环播放</string>
+    <string name="movie_player">movie player(MediaCodec and MediaExtractor)</string>
+</resources>

@@ -8,8 +8,12 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FileUtils {
     private static final String TAG = "FileUtils";
@@ -39,5 +43,54 @@ public class FileUtils {
             e.printStackTrace();
         }
         return Uri.fromFile(outputFile);
+    }
+
+
+    /**
+     * 通过通配符来获取当前目录下的文件集合
+     * @param dir 指定目录
+     * @param glob 通配符
+     * @return 文件路径集合
+     */
+    public static String[] getFiles(File dir, String glob) {
+        String regex = globToRegex(glob);
+        Pattern pattern = Pattern.compile(regex);
+        String[] result = dir.list((file, s) -> {
+            Matcher matcher = pattern.matcher(s);
+            return matcher.matches();
+        });
+        if (result == null) {
+            return null;
+        }
+        Arrays.sort(result);
+        return result;
+    }
+
+
+    /**
+     * 将通配符转化成正则表达式
+     * @param glob 通配符
+     * @return 正则表达式
+     */
+    private static String globToRegex(String glob) {
+        StringBuilder regex = new StringBuilder(glob.length());
+        //regex.append('^');
+        for (char ch : glob.toCharArray()) {
+            switch (ch) {
+                case '*':
+                    regex.append(".*");
+                    break;
+                case '?':
+                    regex.append('.');
+                    break;
+                case '.':
+                    regex.append("\\.");
+                    break;
+                default:
+                    regex.append(ch);
+            }
+        }
+        //regex.append('$');
+        return regex.toString();
     }
 }

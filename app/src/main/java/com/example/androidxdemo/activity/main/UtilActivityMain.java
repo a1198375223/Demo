@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.androidxdemo.R;
+import com.example.androidxdemo.activity.bubble.FlowActivity;
 import com.example.androidxdemo.activity.camera.CameraActivity;
 import com.example.androidxdemo.activity.image.ImageActivity;
 import com.example.androidxdemo.activity.main.adapter.UtilRecyclerViewAdapter;
@@ -17,6 +18,7 @@ import com.example.androidxdemo.activity.receiver.ReceiverActivity;
 import com.example.androidxdemo.activity.share.ShareActivity;
 import com.example.androidxdemo.activity.view.ViewActivity;
 import com.example.dagger2.DaggerActivity;
+import com.example.media.VideoActivity;
 import com.example.room.RoomActivity;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_ROOM = 8;
     public static final int ITEM_CAMERA = 9;
     public static final int ITEM_SHARE = 10;
+    public static final int ITEM_BUBBLES = 11;
 
 
 
@@ -59,7 +62,8 @@ public class UtilActivityMain extends AppCompatActivity {
                 "dagger2测试",
                 "room测试",
                 "相机(CameraX)",
-                "分享");
+                "分享",
+                "浮动activity");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -75,6 +79,8 @@ public class UtilActivityMain extends AppCompatActivity {
                     startActivity(imageIntent);
                     break;
                 case ITEM_VIDEO:
+                    Intent videoIntent = new Intent(UtilActivityMain.this, VideoActivity.class);
+                    startActivity(videoIntent);
                     break;
                 case ITEM_MUSIC:
                     break;
@@ -101,6 +107,10 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_SHARE:
                     Intent shareIntent = new Intent(UtilActivityMain.this, ShareActivity.class);
                     startActivity(shareIntent);
+                    break;
+                case ITEM_BUBBLES:
+                    Intent flowIntent = new Intent(UtilActivityMain.this, FlowActivity.class);
+                    startActivity(flowIntent);
                     break;
             }
         });

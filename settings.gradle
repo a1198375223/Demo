@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':dagger2', ':room'
+include ':app', ':commonlibrary', ':dagger2', ':room', ':media'
