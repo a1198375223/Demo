@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.androidxdemo">
     <!--解决Access denied问题-->
+    <!--<uses-library android:name="org.apache.http.legacy" android:required="false"/>-->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -99,6 +100,11 @@
             android:resizeableActivity="true" />
 
         <activity android:name=".activity.bubble.FlowActivity" />
+        <activity android:name=".activity.camera.Camera2Activity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".activity.camera.Camera2VideoActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
 
         <provider
             android:authorities="com.example.utils.provider.documents"

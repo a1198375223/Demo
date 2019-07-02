@@ -54,12 +54,6 @@ dependencies {
     // Test helpers
     androidTestImplementation "androidx.room:room-testing:2.1.0"
 
-    // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-    // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    // optional - ReactiveStreams support for LiveData
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
     // optional - Test helpers for LiveData
     testImplementation 'androidx.arch.core:core-testing:2.1.0-beta01'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"

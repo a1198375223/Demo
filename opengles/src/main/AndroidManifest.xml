@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.opengles" >
+    <!-- Tell the system this app requires OpenGL ES 2.0. -->
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
+    <application>
+        <activity android:name=".OpenGLESActivity" />
+        <activity android:name=".SimpleExampleActivity" />
+        <activity android:name=".ShapeSquareActivity" />
+        <activity android:name=".CubeActivity" />
+        <activity android:name=".TextureActivity" />
+        <activity android:name=".GLInfoActivity" />
+    </application>
+</manifest>

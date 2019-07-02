@@ -6,17 +6,30 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/movie_play"
-        android:text="@string/movie_player"/>
+        android:id="@+id/bn1"
+        android:text="三角形"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Surface绘制颜色条"
-        android:id="@+id/color_bar_bn"/>
+        android:id="@+id/bn2"
+        android:text="正方形"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试相机"
-        android:id="@+id/test_camera"/>
+        android:id="@+id/bn3"
+        android:text="正方体"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bn4"
+        android:text="纹理测试"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bn5"
+        android:text="GL信息"/>
 </LinearLayout>

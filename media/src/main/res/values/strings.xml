@@ -6,4 +6,8 @@
     <string name="play_at_60fps">Play at 60fps</string>
     <string name="loop_play">循环播放</string>
     <string name="movie_player">movie player(MediaCodec and MediaExtractor)</string>
+
+    <string name="tfcCameraParams">Camera params: %1$dx%2$d @%s fps</string>
+    <string name="tfcRectSize">Rect size (pixels): %1$dx%2$d</string>
+    <string name="tfcZoomArea">Zoom area (pixels): %1$dx%2$d</string>
 </resources>

@@ -20,6 +20,9 @@ public class CameraActivity extends AppCompatActivity {
     private static final String TAG = "CameraActivity";
     public static final int ITEM_CAMERAX = 0;
     public static final int ITEM_DEMO_CAMERAX = 1;
+    public static final int ITEM_CAMERA2 = 2;
+    public static final int ITEM_CAMERA2_VIDEO = 3;
+
 
     private RecyclerView mRecyclerView;
     private UtilRecyclerViewAdapter mAdapter;
@@ -33,7 +36,9 @@ public class CameraActivity extends AppCompatActivity {
         mData = new ArrayList<>();
         Collections.addAll(mData,
                 "cameraX",
-                "DemoCameraX");
+                "DemoCameraX",
+                "Camera2",
+                "Camera2Video");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -47,6 +52,14 @@ public class CameraActivity extends AppCompatActivity {
                 case ITEM_DEMO_CAMERAX:
                     Intent demoIntent = new Intent(CameraActivity.this, DemoCameraXActivity.class);
                     startActivity(demoIntent);
+                    break;
+                case ITEM_CAMERA2:
+                    Intent camera2Intent = new Intent(CameraActivity.this, Camera2Activity.class);
+                    startActivity(camera2Intent);
+                    break;
+                case ITEM_CAMERA2_VIDEO:
+                    Intent camera2VideoIntent = new Intent(CameraActivity.this, Camera2VideoActivity.class);
+                    startActivity(camera2VideoIntent);
                     break;
             }
         });

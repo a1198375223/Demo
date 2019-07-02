@@ -8,7 +8,9 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.media.activity.ColorBarActivity;
 import com.example.media.activity.PlayMovieActivity;
+import com.example.media.activity.TextureFromCameraActivity;
 
 public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
@@ -21,6 +23,16 @@ public class VideoActivity extends AppCompatActivity {
         findViewById(R.id.movie_play).setOnClickListener(view -> {
             Intent movieIntent = new Intent(VideoActivity.this, PlayMovieActivity.class);
             startActivity(movieIntent);
+        });
+
+        findViewById(R.id.color_bar_bn).setOnClickListener(view -> {
+            Intent colorBarIntent = new Intent(VideoActivity.this, ColorBarActivity.class);
+            startActivity(colorBarIntent);
+        });
+
+        findViewById(R.id.test_camera).setOnClickListener(view -> {
+            Intent testCameraIntent = new Intent(VideoActivity.this, TextureFromCameraActivity.class);
+            startActivity(testCameraIntent);
         });
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

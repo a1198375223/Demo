@@ -19,6 +19,7 @@ import com.example.androidxdemo.activity.share.ShareActivity;
 import com.example.androidxdemo.activity.view.ViewActivity;
 import com.example.dagger2.DaggerActivity;
 import com.example.media.VideoActivity;
+import com.example.opengles.OpenGLESActivity;
 import com.example.room.RoomActivity;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_CAMERA = 9;
     public static final int ITEM_SHARE = 10;
     public static final int ITEM_BUBBLES = 11;
+    public static final int ITEM_OPENGL = 12;
 
 
 
@@ -63,7 +65,8 @@ public class UtilActivityMain extends AppCompatActivity {
                 "room测试",
                 "相机(CameraX)",
                 "分享",
-                "浮动activity");
+                "浮动activity",
+                "OpenGL");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +114,10 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_BUBBLES:
                     Intent flowIntent = new Intent(UtilActivityMain.this, FlowActivity.class);
                     startActivity(flowIntent);
+                    break;
+                case ITEM_OPENGL:
+                    Intent openGlIntent = new Intent(UtilActivityMain.this, OpenGLESActivity.class);
+                    startActivity(openGlIntent);
                     break;
             }
         });

@@ -3,5 +3,7 @@
     <application>
         <activity android:name=".activity.PlayMovieActivity" />
         <activity android:name=".VideoActivity" />
+        <activity android:name=".activity.ColorBarActivity" />
+        <activity android:name=".activity.TextureFromCameraActivity" />
     </application>
 </manifest>

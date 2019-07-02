@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.media.view.AutoFitTextureView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tfcCameraParams"
+        android:id="@+id/camera_param_tv"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/camera_param_tv"
+        android:id="@+id/size_tv"
+        android:text="@string/tfcRectSize"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/size_tv"
+        android:id="@+id/zoom_tv"
+        android:text="@string/tfcZoomArea"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zoom: "
+        android:layout_below="@id/zoom_tv"
+        android:id="@+id/zoom_label_tv" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/zoom_label_tv"
+        android:layout_below="@id/zoom_tv"
+        android:id="@+id/zoom_bar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Size: "
+        android:layout_below="@id/zoom_label_tv"
+        android:id="@+id/size_label_tv"/>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/size_label_tv"
+        android:layout_below="@id/zoom_bar"
+        android:id="@+id/size_bar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rotation_label_tv"
+        android:text="Rotation: "
+        android:layout_below="@id/size_label_tv"/>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/size_bar"
+        android:layout_toEndOf="@+id/rotation_label_tv"
+        android:id="@+id/rotation_bar"/>
+
+</RelativeLayout>
