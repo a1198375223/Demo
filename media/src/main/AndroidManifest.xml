@@ -1,9 +1,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.media">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application>
         <activity android:name=".activity.PlayMovieActivity" />
         <activity android:name=".VideoActivity" />
         <activity android:name=".activity.ColorBarActivity" />
         <activity android:name=".activity.TextureFromCameraActivity" />
+        <activity android:name=".activity.MediaPlayerActivity" />
+        <activity android:name=".activity.MediaPlayerVideoActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity android:name=".activity.ExoPlayerActivity" />
+        <activity android:name=".activity.PlayActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity android:name=".activity.PlayManagerActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <service
+            android:name=".common.ExoDownloadService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.exoplayer.downloadService.action.RESTART" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

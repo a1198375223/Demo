@@ -32,12 +32,7 @@ dependencies {
 
     // support 包依赖
     api 'androidx.appcompat:appcompat:1.1.0-beta01'
-    api 'com.android.support:design:28.0.0'
     api 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
-    api 'com.android.support:support-compat:28.0.0'
-    api 'com.android.support:support-v4:28.0.0'
-    api 'com.android.support:support-annotations:28.0.0'
-    api 'com.android.support:support-v13:28.0.0'
     // dagger2依赖
     api 'com.google.dagger:dagger-android:2.23.2'
     api 'com.google.dagger:dagger-android-support:2.23.2'
@@ -98,4 +93,25 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     // optional - ReactiveStreams support for LiveData
     api "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
+
+
+    // required, enough for most devices.
+    api 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    api 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+    // Other ABIs: optional
+    api 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+    api 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+    api 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+    api 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+
+    // ExoPlayer as IMediaPlayer: optional, experimental
+    api 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+
+
+    api 'com.google.android.exoplayer:exoplayer:2.10.2'
+
+    api 'com.google.android.exoplayer:exoplayer-core:2.10.2'
+    api 'com.google.android.exoplayer:exoplayer-dash:2.10.2'
+    api 'com.google.android.exoplayer:exoplayer-ui:2.10.2'
 }

@@ -9,8 +9,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.media.activity.ColorBarActivity;
+import com.example.media.activity.ExoPlayerActivity;
+import com.example.media.activity.MediaPlayerActivity;
+import com.example.media.activity.MediaPlayerVideoActivity;
 import com.example.media.activity.PlayMovieActivity;
 import com.example.media.activity.TextureFromCameraActivity;
+
+import java.util.Arrays;
 
 public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
@@ -35,6 +40,21 @@ public class VideoActivity extends AppCompatActivity {
             startActivity(testCameraIntent);
         });
 
+        findViewById(R.id.media_player).setOnClickListener(view -> {
+            Intent mediaPlayerIntent = new Intent(VideoActivity.this, MediaPlayerActivity.class);
+            startActivity(mediaPlayerIntent);
+        });
+
+        findViewById(R.id.player_video).setOnClickListener(view -> {
+            Intent mediaPlayerVideoIntent = new Intent(VideoActivity.this, MediaPlayerVideoActivity.class);
+            startActivity(mediaPlayerVideoIntent);
+        });
+
+        findViewById(R.id.exo_player).setOnClickListener(view -> {
+            Intent exoPlayerIntent = new Intent(VideoActivity.this, ExoPlayerActivity.class);
+            startActivity(exoPlayerIntent);
+        });
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //            Log.d(TAG, "测试文件路径：\n" +
 //                    "getFilesDir=" + getFilesDir() + "\n" + // /data/user/0/com.example.androidxdemo/files
@@ -45,7 +65,9 @@ public class VideoActivity extends AppCompatActivity {
 //                    "getExternalCacheDir=" + getExternalCacheDir() + "\n" + // /storage/emulated/0/Android/data/com.example.androidxdemo/cache
 //                    "getNoBackupFilesDir=" + getNoBackupFilesDir() + "\n" + // /data/user/0/com.example.androidxdemo/no_backup
 //                    "getPackageCodePath=" + getPackageCodePath() + "\n" + // /data/app/com.example.androidxdemo-2/base.apk
-//                    "getPackageResourcePath=" + getPackageResourcePath()); // /data/app/com.example.androidxdemo-2/base.apk
+//                    "getPackageResourcePath=" + getPackageResourcePath() + "\n" + // /data/app/com.example.androidxdemo-2/base.apk
+//                    "getExternalFilesDir=" + getExternalFilesDir(null) + "\n" // /storage/emulated/0/Android/data/com.example.androidxdemo/files
+//            );
 //        }
     }
 }

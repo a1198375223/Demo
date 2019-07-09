@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <!--nfc 权限-->
     <uses-permission android:name="android.permission.NFC" />
 

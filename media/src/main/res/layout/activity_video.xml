@@ -19,4 +19,22 @@
         android:layout_height="wrap_content"
         android:text="测试相机"
         android:id="@+id/test_camera"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MediaPlayer"
+        android:id="@+id/media_player"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MediaPlayer Video"
+        android:id="@+id/player_video"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/exo_player"
+        android:text="ExoPlayer"/>
 </LinearLayout>
