@@ -44,7 +44,9 @@ public class DownloadUtils {
     private static DownloadManager downloadManager;
     private static DownloadTracker downloadTracker;
 
-    private DownloadUtils() {
+    private DownloadUtils() {}
+
+    public void init() {
         // 生成用户
         userAgent = Util.getUserAgent(AppUtils.app(), "ExoPlayerTest");
     }

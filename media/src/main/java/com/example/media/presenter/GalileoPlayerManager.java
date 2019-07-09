@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,9 @@ import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
 import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
+import com.google.android.exoplayer2.ext.cast.CastPlayer;
+import com.google.android.exoplayer2.ext.cast.MediaItem;
+import com.google.android.exoplayer2.ext.cast.SessionAvailabilityListener;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.metadata.Metadata;
@@ -61,6 +66,7 @@ import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.DebugTextViewHelper;
+import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.spherical.SphericalSurfaceView;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -69,10 +75,15 @@ import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoListener;
+import com.google.android.gms.cast.MediaInfo;
+import com.google.android.gms.cast.MediaMetadata;
+import com.google.android.gms.cast.MediaQueueItem;
+import com.google.android.gms.cast.framework.CastContext;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -84,7 +95,8 @@ public class GalileoPlayerManager extends BasePresenter implements
         AudioListener,
         AnalyticsListener,
         TextOutput,
-        MetadataOutput {
+        MetadataOutput,
+        IPlayerCastManager{
     private static final String TAG = "GalileoPlayerManager";
 
     // 数字版权相关的
@@ -130,6 +142,14 @@ public class GalileoPlayerManager extends BasePresenter implements
 
     // 环绕模式
     public static final String SPHERICAL_STEREO_MODE_EXTRA = "spherical_stereo_mode_extra";
+
+    // 当前的模式
+    private static final int MODE_NONE = -1;
+    private static final int MODE_NORMAL = 0;
+    private static final int MODE_CAST = 1;
+    private int currentMode = MODE_NONE;
+
+
 
 
 
@@ -191,6 +211,7 @@ public class GalileoPlayerManager extends BasePresenter implements
         }
         dataSourceFactory = DownloadUtils.buildDataSourceFactory();
         this.playerView = playerView;
+        currentMode = MODE_NORMAL;
 
     }
 
@@ -222,36 +243,49 @@ public class GalileoPlayerManager extends BasePresenter implements
     @Override
     public void start(LifecycleOwner owner) {
         super.start(owner);
-        if (intent == null) {
-            throw new IllegalArgumentException("Must init intent before onStart.");
-        }
-        if (Util.SDK_INT > 23) {
-            initializePlayer(context, intent);
-            if (playerView != null) {
-                playerView.onResume();
+        if (currentMode == MODE_NORMAL) {
+            if (intent == null) {
+                throw new IllegalArgumentException("Must init intent before onStart.");
             }
+            if (Util.SDK_INT > 23) {
+                initializePlayer(context, intent);
+                if (playerView != null) {
+                    playerView.onResume();
+                }
+            }
+        } else if (currentMode == MODE_CAST) {
+            // do nothing
         }
     }
 
     @Override
     public void resume(LifecycleOwner owner) {
         super.resume(owner);
-        if (Util.SDK_INT <= 23 || player == null) {
-            initializePlayer(context, intent);
-            if (playerView != null) {
-                playerView.onResume();
+        if (currentMode == MODE_NORMAL) {
+            if (Util.SDK_INT <= 23 || player == null) {
+                initializePlayer(context, intent);
+                if (playerView != null) {
+                    playerView.onResume();
+                }
             }
+        } else if (currentMode == MODE_CAST) {
+            setCurrentPlayer(castPlayer.isCastSessionAvailable() ? castPlayer : player);
         }
     }
 
     @Override
     public void pause(LifecycleOwner owner) {
         super.pause(owner);
-        if (Util.SDK_INT <= 23) {
-            if (playerView != null) {
-                playerView.onPause();
+
+        if (currentMode == MODE_NORMAL) {
+            if (Util.SDK_INT <= 23) {
+                if (playerView != null) {
+                    playerView.onPause();
+                }
+                release();
             }
-            releasePlayer();
+        } else if (currentMode == MODE_CAST) {
+            release();
         }
     }
 
@@ -259,12 +293,17 @@ public class GalileoPlayerManager extends BasePresenter implements
     @Override
     public void stop(LifecycleOwner owner) {
         super.stop(owner);
-        if (Util.SDK_INT > 23) {
-            if (playerView != null) {
-                playerView.onPause();
+        if (currentMode == MODE_NORMAL) {
+            if (Util.SDK_INT > 23) {
+                if (playerView != null) {
+                    playerView.onPause();
+                }
+                release();
             }
-            releasePlayer();
+        } else if (currentMode == MODE_CAST) {
+            // do nothing
         }
+
     }
 
     @Override
@@ -565,6 +604,16 @@ public class GalileoPlayerManager extends BasePresenter implements
 
     /**
      * 生成媒体类型
+     * @param mediaItem 媒体数据结构
+     * @return 返回媒体资源
+     */
+    private MediaSource buildMediaSource(MediaItem mediaItem) {
+        return buildMediaSource(mediaItem.media.uri, null);
+    }
+
+
+    /**
+     * 生成媒体类型
      * @param uri 媒体文件uri
      * @return 返回媒体资源
      */
@@ -686,6 +735,9 @@ public class GalileoPlayerManager extends BasePresenter implements
     @Override
     public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
         Log.d(TAG, "Player time line changed. timeline: " + timeline + " reason: " + reason);
+        if (currentMode == MODE_CAST) {
+            updateCurrentItemIndex();
+        }
         if (mPlaybackListener != null) {
             mPlaybackListener.onTimelineChanged(timeline, manifest, reason);
         }
@@ -732,7 +784,9 @@ public class GalileoPlayerManager extends BasePresenter implements
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         Log.d(TAG, "Player state changed playWhenReady=" + playWhenReady + " playbackState=" + playbackState);
-
+        if (currentMode == MODE_CAST) {
+            updateCurrentItemIndex();
+        }
         if (mPlaybackListener != null) {
             mPlaybackListener.onPlayerStateChanged(playWhenReady, playbackState);
         }
@@ -780,7 +834,7 @@ public class GalileoPlayerManager extends BasePresenter implements
             }
         }
 
-        if (isBehindLiveWindow(error)) {
+        if (currentMode == MODE_NORMAL && isBehindLiveWindow(error)) {
             clearStartPosition();
             initializePlayer(context, intent);
         }
@@ -794,6 +848,9 @@ public class GalileoPlayerManager extends BasePresenter implements
     @Override
     public void onPositionDiscontinuity(int reason) {
         Log.e(TAG, "Player position discontinuity occurs. reason: " + reason);
+        if (currentMode == MODE_CAST) {
+            updateCurrentItemIndex();
+        }
         if (mPlaybackListener != null) {
             mPlaybackListener.onPositionDiscontinuity(reason);
         }
@@ -877,13 +934,319 @@ public class GalileoPlayerManager extends BasePresenter implements
 
     //----------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------
-    //--------------------------------------MetadataOutput-------------------------------------------
+    //--------------------------------------MetadataOutput------------------------------------------
     //----------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------
 
     @Override
     public void onMetadata(Metadata metadata) {
         Log.d(TAG, "onMetadata: " + metadata);
+    }
+
+
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+    //------------------------------------IPlayerCastManager----------------------------------------
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+    private ArrayList<MediaItem> mediaQueue;
+    private int currentItemIndex;
+    private ConcatenatingMediaSource concatenatingMediaSource;
+    private PlayerControlView castControlView;
+    private CastPlayer castPlayer;
+    private Player currentPlayer;
+
+
+    public GalileoPlayerManager(LifecycleOwner owner, Context context, CastContext castContext,
+                                PlayerControlView playerControlView, PlayerView playerView) {
+        super(owner);
+        this.context = context;
+        this.playerView = playerView;
+        mediaQueue = new ArrayList<>();
+        dataSourceFactory = DownloadUtils.buildDataSourceFactory();
+        currentItemIndex = C.INDEX_UNSET;
+        concatenatingMediaSource = new ConcatenatingMediaSource();
+        castControlView = playerControlView;
+        clearStartPosition();
+        createExoPlayer(context, castContext);
+        currentMode = MODE_CAST;
+    }
+
+    private void createExoPlayer(Context context, CastContext castContext) {
+        if (player == null) {
+            // 获取渲染器
+            RenderersFactory renderersFactory = DownloadUtils.getInstance().buildRenderersFactory(false);
+            // 创建轨道选择器 通过abr(平局比特率)算法来创建不同的选择器模式
+            trackSelector = new DefaultTrackSelector();
+
+            // 将最后一次可见的轨道组置为null
+            lastSeenTrackGroupArray = null;
+
+            // 创建ExoPlayer
+            player = ExoPlayerFactory.newSimpleInstance(context, renderersFactory, trackSelector);
+            // 设置监听器
+            player.addListener(this);
+            player.addVideoListener(this);
+            player.addAnalyticsListener(this);
+            player.addAudioListener(this);
+            player.addTextOutput(this);
+            player.addMetadataOutput(this);
+            // 是否自动播放
+            player.setPlayWhenReady(startAutoPlay);
+
+            // 绑定player
+            playerView.setPlayer(player);
+            playerView.setPlaybackPreparer(() -> {
+                Log.d(TAG, "Player playback preparer.");
+                player.retry();
+            });
+
+            castPlayer = new CastPlayer(castContext);
+            castPlayer.addListener(this);
+            castPlayer.setSessionAvailabilityListener(new SessionAvailabilityListener() {
+                @Override
+                public void onCastSessionAvailable() {
+                    Log.d(TAG, "onCastSessionAvailable: ");
+                    setCurrentPlayer(castPlayer);
+                }
+
+                @Override
+                public void onCastSessionUnavailable() {
+                    Log.d(TAG, "onCastSessionUnavailable: ");
+                    setCurrentPlayer(player);
+                }
+            });
+
+            castControlView.setPlayer(castPlayer);
+        }
+
+        // 判断是否是有保存视频播放的起始位置
+        boolean haveStartPosition = startWindow != C.INDEX_UNSET;
+        if (haveStartPosition) {
+            player.seekTo(startWindow, startPosition);
+        }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        if (currentPlayer == player) {
+            return playerView.dispatchKeyEvent(keyEvent);
+        } else {
+            return castControlView.dispatchKeyEvent(keyEvent);
+        }
+    }
+
+    @Override
+    public void addItem(MediaItem mediaItem) {
+        mediaQueue.add(mediaItem);
+        concatenatingMediaSource.addMediaSource(buildMediaSource(mediaItem));
+        if (currentPlayer == castPlayer) {
+            castPlayer.addItems(buildMediaQueueItem(mediaItem));
+        }
+    }
+
+    @Override
+    public int getMediaQueueSize() {
+        return mediaQueue.size();
+    }
+
+    @Override
+    public void selectQueueItem(int position) {
+        setCurrentItem(position, C.TIME_UNSET, true);
+    }
+
+    @Override
+    public int getCurrentItemIndex() {
+        return currentItemIndex;
+    }
+
+    @Override
+    public MediaItem getItem(int position) {
+        return mediaQueue.get(position);
+    }
+
+    @Override
+    public boolean moveItem(MediaItem item, int to) {
+        int fromIndex = mediaQueue.indexOf(item);
+        Log.d(TAG, "moveItem from->to: (" + fromIndex + "->" + to + ")");
+        if (fromIndex == -1) {
+            return false;
+        }
+
+        // 1. 移动MediaSource
+        concatenatingMediaSource.moveMediaSource(fromIndex, to);
+        // 2. 移动player
+        if (currentPlayer == castPlayer && castPlayer.getPlaybackState() != Player.STATE_IDLE) {
+            Timeline castTimeline = castPlayer.getCurrentTimeline();
+            int periodCount = castTimeline.getPeriodCount();
+            if (periodCount <= fromIndex || periodCount <= to) {
+                return false;
+            }
+            int elementId = ((int) castTimeline.getPeriod(fromIndex, new Timeline.Period()).id);
+            castPlayer.moveItem(elementId, to);
+        }
+        // 3. 移动mediaQueue
+        mediaQueue.add(to, mediaQueue.remove(fromIndex));
+
+        if (fromIndex == currentItemIndex) {
+            maybeSetCurrentItemAndNotify(to);
+        } else if (fromIndex < currentItemIndex && to >= currentItemIndex) {
+            maybeSetCurrentItemAndNotify(currentItemIndex - 1);
+        } else if (fromIndex > currentItemIndex && to <= currentItemIndex) {
+            maybeSetCurrentItemAndNotify(currentItemIndex + 1);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removeItem(MediaItem item) {
+        int itemIndex = mediaQueue.indexOf(item);
+        Log.d(TAG, "removeItem index=" + itemIndex);
+        if (itemIndex == -1) {
+            return false;
+        }
+
+        // 1. 从mediaSource中删除
+        concatenatingMediaSource.removeMediaSource(itemIndex);
+        // 2. 从player中删除
+        if (currentPlayer == castPlayer) {
+            if (castPlayer.getPlaybackState() != Player.STATE_IDLE) {
+                Timeline castTimeline = castPlayer.getCurrentTimeline();
+                Log.d(TAG, "remove item timeline: "  + castTimeline + " period count: " + castTimeline.getPeriodCount());
+                if (castTimeline.getPeriodCount() <= itemIndex) {
+                    return false;
+                }
+
+                castPlayer.removeItem(((int) castTimeline.getPeriod(itemIndex, new Timeline.Period()).id));
+            }
+        }
+        // 3. 从mediaQueue中删除
+        mediaQueue.remove(itemIndex);
+        if (itemIndex == currentItemIndex && itemIndex == mediaQueue.size()) { // index为0
+            maybeSetCurrentItemAndNotify(C.INDEX_UNSET);
+        } else if (itemIndex < currentItemIndex) { // 当前移除的index比正在播放的index小, 需要更新一下索引
+            maybeSetCurrentItemAndNotify(currentItemIndex - 1);
+        }
+        return true;
+    }
+
+    @Override
+    public void setListener(IPlaybackListener listener) {
+        this.mPlaybackListener = listener;
+    }
+
+    @Override
+    public void release() {
+        releasePlayer();
+        currentItemIndex = C.INDEX_UNSET;
+        if (mediaQueue != null) {
+            mediaQueue.clear();
+        }
+        if (concatenatingMediaSource != null) {
+            concatenatingMediaSource.clear();
+        }
+        if (castPlayer != null) {
+            castPlayer.setSessionAvailabilityListener(null);
+            castPlayer.release();
+            castPlayer = null;
+        }
+
+        if (currentPlayer != null) {
+            currentPlayer.release();
+            currentPlayer = null;
+        }
+    }
+
+
+    // 更新当前播放的位置
+    private void updateCurrentItemIndex() {
+        int playbackState = currentPlayer.getPlaybackState();
+        maybeSetCurrentItemAndNotify(playbackState != Player.STATE_IDLE && playbackState != Player.STATE_ENDED ?
+                currentPlayer.getCurrentWindowIndex() : C.INDEX_UNSET);
+    }
+
+
+    // 设置当前正在播放的player
+    private void setCurrentPlayer(Player currentPlayer) {
+        if (this.currentPlayer == currentPlayer) {
+            Log.d(TAG, "Already set current player.");
+            Toasty.showCustom("已经设置过了当前的player");
+            return;
+        }
+
+        if (currentPlayer == player) {
+            playerView.setVisibility(View.VISIBLE);
+            castControlView.hide();
+        } else { // currentPlayer = castPlayer
+            playerView.setVisibility(View.GONE);
+            castControlView.show();
+        }
+
+        if (this.currentPlayer != null) {
+            int playbackState = this.currentPlayer.getPlaybackState();
+            if (playbackState != Player.STATE_ENDED) {
+                startPosition = this.currentPlayer.getCurrentPosition();
+                startAutoPlay = this.currentPlayer.getPlayWhenReady();
+                startWindow = this.currentPlayer.getCurrentWindowIndex();
+            }
+            this.currentPlayer.stop(true);
+        }
+
+        this.currentPlayer = currentPlayer;
+
+        if (currentPlayer == player) {
+            player.prepare(concatenatingMediaSource);
+        }
+
+        if (startWindow != C.INDEX_UNSET) {
+            setCurrentItem(startWindow, startPosition, startAutoPlay);
+        }
+    }
+
+    /**
+     * 播放指定位置的视频
+     * @param itemIndex 位置
+     * @param positionMs 开始的位置
+     * @param playWhenReady 是否当视频准备好了就开始播放
+     */
+    private void setCurrentItem(int itemIndex, long positionMs, boolean playWhenReady) {
+        Log.d(TAG, "setCurrentItem: itemIndex=" + itemIndex + " positionMs=" + positionMs + " playWhenReady=" + playWhenReady);
+        maybeSetCurrentItemAndNotify(itemIndex);
+
+        if (currentPlayer == castPlayer && castPlayer.getCurrentTimeline().isEmpty()) {
+            MediaQueueItem[] items = new MediaQueueItem[mediaQueue.size()];
+            for (int i = 0; i < items.length; i++) {
+                items[i] = buildMediaQueueItem(mediaQueue.get(i));
+            }
+            castPlayer.loadItems(items, itemIndex, positionMs, Player.REPEAT_MODE_OFF);
+        } else {
+            currentPlayer.seekTo(itemIndex, positionMs);
+            currentPlayer.setPlayWhenReady(playWhenReady);
+        }
+    }
+
+    // 判断是否有改变播放顺序, 如果改变了播放顺序, 通知ui
+    private void maybeSetCurrentItemAndNotify(int currentItemIndex) {
+        if (this.currentItemIndex != currentItemIndex) {
+            int oldIndex = this.currentItemIndex;
+            this.currentItemIndex = currentItemIndex;
+            if (mPlaybackListener != null) {
+                mPlaybackListener.onQueuePositionChanged(oldIndex, currentItemIndex);
+            }
+        }
+    }
+
+
+    // 生成MediaQueueItem
+    private MediaQueueItem buildMediaQueueItem(MediaItem item) {
+        MediaMetadata movieMetadata = new MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE);
+        movieMetadata.putString(MediaMetadata.KEY_TITLE, item.title);
+        MediaInfo mediaInfo = new MediaInfo.Builder(item.media.uri.toString())
+                .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
+                .setContentType(item.mimeType)
+                .setMetadata(movieMetadata)
+                .build();
+        return new MediaQueueItem.Builder(mediaInfo).build();
     }
 
     //----------------------------------------------------------------------------------------------
@@ -1005,5 +1368,10 @@ public class GalileoPlayerManager extends BasePresenter implements
 
         // 当播放器处理seek请求的时候调用
         void onSeekProcessed();
+
+        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------
+        // 当播放列表播放顺序改变的时候会被掉用
+        void onQueuePositionChanged(int oldIndex, int currentItemIndex);
     }
 }

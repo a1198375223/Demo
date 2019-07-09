@@ -4,7 +4,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <application>
+    <application android:allowBackup="true"
+        android:largeHeap="true">
+        <meta-data android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="${castOptionsProvider}" />
+
         <activity android:name=".activity.PlayMovieActivity" />
         <activity android:name=".VideoActivity" />
         <activity android:name=".activity.ColorBarActivity" />
@@ -18,6 +22,9 @@
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
         <activity android:name=".activity.PlayManagerActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity android:name=".activity.ExoCastActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"/>
         <service
             android:name=".common.ExoDownloadService"
             android:exported="false" >

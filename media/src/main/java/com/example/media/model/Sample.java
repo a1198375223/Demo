@@ -3,7 +3,6 @@ package com.example.media.model;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.media.activity.PlayActivity;
 import com.example.media.activity.PlayManagerActivity;
 import com.example.media.presenter.GalileoPlayerManager;
 

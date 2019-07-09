@@ -10,6 +10,7 @@ import com.example.commonlibrary.utils.NotificationUtils;
 import com.example.commonlibrary.utils.ThreadPool;
 import com.example.commonlibrary.utils.RomUtils;
 import com.example.commonlibrary.rom.RomChecker;
+import com.example.media.utils.DownloadUtils;
 import com.example.room.RoomApplication;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -56,6 +57,8 @@ public class MyApplication extends RoomApplication {
                     + "\n是否是金立手机=" + RomChecker.isJinLi()
                     + "\n是否是锤子手机=" + RomChecker.isChuiZi());
         });
+
+        DownloadUtils.getInstance().init();
     }
 
     @Override

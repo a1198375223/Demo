@@ -59,4 +59,9 @@ public class PlaybackListenerWrapper implements GalileoPlayerManager.IPlaybackLi
     public void onSeekProcessed() {
 
     }
+
+    @Override
+    public void onQueuePositionChanged(int oldIndex, int currentItemIndex) {
+
+    }
 }

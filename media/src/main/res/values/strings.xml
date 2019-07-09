@@ -63,4 +63,12 @@
     <string name="prefer_extension_decoders">首选扩展解码器</string>
 
     <string name="random_abr">启用随机ABR</string>
+
+    <string name="media_route_menu_title">Cast</string>
+
+    <string name="add_samples">添加视频</string>
+
+    <string name="cast_context_error">获取Cast的context失败, 请尝试更新google服务, 并重新启动app</string>
+
+    <string name="player_error_msg">播放器发生错误, 重新选择播放队列, 可以通过log来查看具体的错误信息</string>
 </resources>

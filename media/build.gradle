@@ -25,6 +25,15 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    flavorDimensions "receiver"
+
+    productFlavors {
+        defaultCast {
+            dimension "receiver"
+            manifestPlaceholders = [castOptionsProvider: "com.google.android.exoplayer2.ext.cast.DefaultCastOptionsProvider"]
+        }
+    }
 }
 
 dependencies {

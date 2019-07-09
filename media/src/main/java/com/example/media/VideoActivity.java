@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.media.activity.ColorBarActivity;
+import com.example.media.activity.ExoCastActivity;
 import com.example.media.activity.ExoPlayerActivity;
 import com.example.media.activity.MediaPlayerActivity;
 import com.example.media.activity.MediaPlayerVideoActivity;
@@ -53,6 +54,11 @@ public class VideoActivity extends AppCompatActivity {
         findViewById(R.id.exo_player).setOnClickListener(view -> {
             Intent exoPlayerIntent = new Intent(VideoActivity.this, ExoPlayerActivity.class);
             startActivity(exoPlayerIntent);
+        });
+
+        findViewById(R.id.cast_exo_player).setOnClickListener(view -> {
+            Intent castPlayerIntent = new Intent(VideoActivity.this, ExoCastActivity.class);
+            startActivity(castPlayerIntent);
         });
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

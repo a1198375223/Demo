@@ -37,4 +37,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/exo_player"
         android:text="ExoPlayer"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cast_exo_player"
+        android:text="Cast Exo Player"/>
 </LinearLayout>
