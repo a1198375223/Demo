@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_qrcode"
+        android:text="生成二维码"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/create_qrcode"
+        android:id="@+id/qrcode_image"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/qrcode_image"
+        android:text="识别二维码"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/recognized_qrcode"/>
+
+    <TextView
+        android:id="@+id/recognized_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="识别结果"
+        android:layout_below="@id/recognized_qrcode"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/view_dimen_130"/>
+
+    <ImageView
+        android:id="@+id/recognized_and_save_qrcode"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/recognized_result"/>
+
+</RelativeLayout>

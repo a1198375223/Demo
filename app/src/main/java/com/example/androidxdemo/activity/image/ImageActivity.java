@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidxdemo.R;
 import com.example.androidxdemo.activity.image.fresco.FrescoActivity;
 import com.example.androidxdemo.activity.image.image_decode.ImageDecoderActivity;
+import com.example.androidxdemo.activity.image.qr_code.QRCodeTestActivity;
+import com.example.androidxdemo.activity.image.qr_code.QrCodeActivity;
+import com.example.androidxdemo.activity.image.water_mark.WatchMarkActivity;
 import com.example.androidxdemo.activity.main.adapter.UtilRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -23,6 +26,9 @@ public class ImageActivity extends AppCompatActivity {
 
     public static final int ITEM_FRESCO = 0;
     public static final int ITEM_IMAGE_DECODER = 1;
+    public static final int ITEM_WATER_MARK = 2;
+    public static final int ITEM_SHORTCUT_SHARE = 3;
+    public static final int ITEM_QRCODE = 4;
 
     private RecyclerView mRecyclerView;
     private UtilRecyclerViewAdapter mAdapter;
@@ -36,7 +42,10 @@ public class ImageActivity extends AppCompatActivity {
         mData = new ArrayList<>();
         Collections.addAll(mData,
                 "fresco",
-                "image decoder");
+                "image decoder",
+                "水印测试",
+                "图片合成",
+                "二维码测试");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,6 +59,18 @@ public class ImageActivity extends AppCompatActivity {
                 case ITEM_IMAGE_DECODER:
                     Intent imageDecoderIntent = new Intent(ImageActivity.this, ImageDecoderActivity.class);
                     startActivity(imageDecoderIntent);
+                    break;
+                case ITEM_WATER_MARK:
+                    Intent waterMarkIntent = new Intent(ImageActivity.this, WatchMarkActivity.class);
+                    startActivity(waterMarkIntent);
+                    break;
+                case ITEM_SHORTCUT_SHARE:
+                    Intent shortcutIntent = new Intent(ImageActivity.this, QrCodeActivity.class);
+                    startActivity(shortcutIntent);
+                    break;
+                case ITEM_QRCODE:
+                    Intent qrCodeIntent = new Intent(ImageActivity.this, QRCodeTestActivity.class);
+                    startActivity(qrCodeIntent);
                     break;
             }
         });

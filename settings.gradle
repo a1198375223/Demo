@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':dagger2', ':room', ':media', ':opengles'
+include ':app', ':commonlibrary', ':dagger2', ':room', ':media', ':opengles', ':javaLib', ':processorLib'

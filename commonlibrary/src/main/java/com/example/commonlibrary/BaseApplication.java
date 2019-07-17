@@ -7,6 +7,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.work.Configuration;
 
+import com.example.commonlibrary.event.MyEventBusIndex;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.concurrent.Executors;
 
 import dagger.android.AndroidInjector;
@@ -21,6 +25,7 @@ public class BaseApplication extends DaggerApplication implements Configuration.
     @Override
     public void onCreate() {
         super.onCreate();
+        EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
     }
 
     @Override

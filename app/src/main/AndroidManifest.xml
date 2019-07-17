@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidxdemo">
     <!--解决Access denied问题-->
     <!--<uses-library android:name="org.apache.http.legacy" android:required="false"/>-->
@@ -38,7 +39,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:allowBackup="true">
+        android:allowBackup="true"
+        android:hardwareAccelerated="true">
         <activity android:name=".activity.main.UtilActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -106,6 +108,25 @@
         <activity
             android:name=".activity.camera.Camera2VideoActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
+
+        <activity android:name=".activity.image.water_mark.WatchMarkActivity" />
+
+        <activity android:name=".activity.annotation.AnnotationActivity" />
+        <activity android:name=".activity.image.qr_code.QrCodeActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity android:name=".activity.image.qr_code.QRCodeTestActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+
+        <!-- 调整二维码扫描界面为竖屏 -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
+
+        <activity
+            android:name=".activity.image.qr_code.MyCaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
 
         <provider
             android:authorities="com.example.utils.provider.documents"

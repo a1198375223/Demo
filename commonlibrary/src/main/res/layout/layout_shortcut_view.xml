@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/view_dimen_55"
+    android:layout_marginEnd="@dimen/view_dimen_55">
+
+    <ImageView
+        android:id="@+id/shortcut_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_dimen_55"
+        android:layout_marginBottom="@dimen/view_dimen_32"
+        android:layout_above="@id/logo_container"
+        android:scaleType="fitXY"/>
+
+
+    <LinearLayout
+        android:id="@+id/logo_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_dimen_200"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/view_dimen_20">
+
+        <ImageView
+            android:id="@+id/qr_code_image"
+            android:layout_width="@dimen/view_dimen_200"
+            android:layout_height="@dimen/view_dimen_200"
+            android:scaleType="centerCrop"/>
+
+
+        <!--android:lineHeight="@dimen/view_dimen_49"-->
+        <TextView
+            android:id="@+id/logo_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/view_dimen_45"
+            android:textColor="#222222"
+            android:text="长按识别二维码, 查看更多精彩内容这里是一句Slogan!"
+            android:paddingTop="@dimen/view_dimen_25"
+            android:layout_marginStart="@dimen/view_dimen_10"
+            android:lineSpacingExtra="@dimen/view_dimen_30"
+            android:layout_marginEnd="@dimen/view_dimen_10"/>
+
+    </LinearLayout>
+</RelativeLayout>

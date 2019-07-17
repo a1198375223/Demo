@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.androidxdemo.R;
+import com.example.androidxdemo.activity.annotation.AnnotationActivity;
 import com.example.androidxdemo.activity.bubble.FlowActivity;
 import com.example.androidxdemo.activity.camera.CameraActivity;
 import com.example.androidxdemo.activity.image.ImageActivity;
@@ -41,6 +42,7 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_SHARE = 10;
     public static final int ITEM_BUBBLES = 11;
     public static final int ITEM_OPENGL = 12;
+    public static final int ITEM_ANNOTATION = 13;
 
 
 
@@ -66,7 +68,8 @@ public class UtilActivityMain extends AppCompatActivity {
                 "相机(CameraX)",
                 "分享",
                 "浮动activity",
-                "OpenGL");
+                "OpenGL",
+                "注解测试");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -118,6 +121,10 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_OPENGL:
                     Intent openGlIntent = new Intent(UtilActivityMain.this, OpenGLESActivity.class);
                     startActivity(openGlIntent);
+                    break;
+                case ITEM_ANNOTATION:
+                    Intent annotationIntent = new Intent(UtilActivityMain.this, AnnotationActivity.class);
+                    startActivity(annotationIntent);
                     break;
             }
         });
