@@ -41,12 +41,12 @@ dependencies {
     implementation project(':commonlibrary')
     implementation project(':dagger2')
     testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
 
     // room 依赖
     def room_version = '2.1.0-rc01'
-    def lifecycle_version = "2.2.0-alpha01"
+    def lifecycle_version = '2.2.0-alpha02'
     implementation 'androidx.room:room-runtime:2.2.0-alpha01'
     annotationProcessor 'androidx.room:room-compiler:2.2.0-alpha01'
     // 支持rxjava2

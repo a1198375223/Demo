@@ -39,6 +39,12 @@ android {
 
 dependencies {
     api project(':javaLib')
+//    api project(':ijk-java')
+//    api project(path: ':ijk-java:ijk-armv5')
+//    api project(path: ':ijk-java:ijk-x86')
+//    api project(path: ':ijk-java:ijk-arm64')
+//    api project(path: ':ijk-java:ijk-armv7a')
+//    api project(path: ':ijk-java:ijk-x86_64')
     annotationProcessor project(':processorLib')
     api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.13-beta-3'

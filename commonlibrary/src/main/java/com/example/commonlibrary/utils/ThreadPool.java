@@ -102,6 +102,14 @@ public class ThreadPool {
     }
 
     /**
+     * 移除任务
+     * @param runnable 待移除的任务
+     */
+    public static void removeFromUi(Runnable runnable) {
+        sUiHandler.removeCallbacks(runnable);
+    }
+
+    /**
      * 让任务延迟制定时间到ui线程去执行
      * @param runnable 待之执行任务
      * @param delay 延迟的时间

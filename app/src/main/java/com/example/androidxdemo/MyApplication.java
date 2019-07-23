@@ -10,9 +10,16 @@ import com.example.commonlibrary.utils.NotificationUtils;
 import com.example.commonlibrary.utils.ThreadPool;
 import com.example.commonlibrary.utils.RomUtils;
 import com.example.commonlibrary.rom.RomChecker;
+import com.example.media.common.VideoViewConfig;
+import com.example.media.common.VideoViewManager;
+import com.example.media.exo.ExoMediaPlayer;
+import com.example.media.exo.ExoMediaPlayerFactory;
+import com.example.media.factory.IjkPlayerFactory;
 import com.example.media.utils.DownloadUtils;
+import com.example.media.view.VideoView;
 import com.example.room.RoomApplication;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.squareup.leakcanary.LeakCanary;
 
 public class MyApplication extends RoomApplication {
     private static final String TAG = "MyApplication";
@@ -59,6 +66,23 @@ public class MyApplication extends RoomApplication {
         });
 
         DownloadUtils.getInstance().init();
+
+        VideoViewManager.setConfig(VideoViewConfig.newBuilder()
+                .setLogEnabled(BuildConfig.DEBUG)
+                .setPlayerFactory(IjkPlayerFactory.create())
+//                .setPlayerFactory(ExoMediaPlayerFactory.create())
+//                .setPlayerFactory(ExoMediaPlayerFactory.create())
+//                .setEnableMediaCodec(true)
+//                .setUsingSurfaceView(true)
+//                .setEnableParallelPlay(true)
+//                .setEnableAudioFocus(false)
+//                .setScreenScale(VideoView.SCREEN_SCALE_MATCH_PARENT)
+                .build());
+        // 分析内存泄漏
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     @Override
