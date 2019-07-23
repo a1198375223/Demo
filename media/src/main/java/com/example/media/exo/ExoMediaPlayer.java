@@ -60,6 +60,10 @@ public class ExoMediaPlayer extends AbstractPlayer implements VideoListener, Pla
         mediaDataSourceFactory = getDataSourceFactory(true);
     }
 
+    public ExoMediaPlayer() {
+        this(null);
+    }
+
     @Override
     public void initPlayer() {
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory();

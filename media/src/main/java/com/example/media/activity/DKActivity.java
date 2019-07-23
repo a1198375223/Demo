@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.media.R;
 import com.example.media.activity.api.ApiActivity;
 import com.example.media.activity.api.PlayerActivity;
+import com.example.media.activity.list.ListActivity;
 import com.example.media.common.VideoViewConfig;
 import com.example.media.common.VideoViewManager;
 import com.example.media.exo.ExoMediaPlayerFactory;
@@ -150,7 +151,7 @@ public class DKActivity extends AppCompatActivity {
     }
 
     public void list(View view) {
-//        startActivity(new Intent(this, ListActivity.class));
+        startActivity(new Intent(this, ListActivity.class));
     }
 
     public void pip(View view) {

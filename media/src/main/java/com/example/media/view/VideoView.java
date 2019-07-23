@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.example.commonlibrary.utils.AppUtils;
 import com.example.media.R;
 import com.example.media.common.AbstractPlayer;
 import com.example.media.common.IRenderView;
@@ -39,6 +40,7 @@ import com.example.media.media_player.AndroidMediaPlayerFactory;
 import com.example.media.utils.PlayerUtils;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +130,9 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
     protected boolean mEnableParallelPlay; //支持多开
 
     // 使用Activity或者Fragment的生命周期来管理这个组件
-    private LifecycleOwner owner;
+    private WeakReference<LifecycleOwner> owner;
+
+    private String assetFileName; // asset文件
 
 
     public VideoView(@NonNull Context context) {
@@ -172,7 +176,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      * 绑定生命周期
      */
     public void setLifecycleOwner(LifecycleOwner owner) {
-        this.owner = owner;
+        this.owner = new WeakReference<>(owner);
         owner.getLifecycle().addObserver(this);
     }
 
@@ -196,9 +200,14 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      */
     @Override
     public void start() {
-        if (owner == null) {
-            throw new IllegalStateException("Must set lifecycle owner first.");
+        if (mCurrentUrl == null && mAssetFileDescriptor == null) {
+            Log.e(TAG, "Please set url first.");
+            return;
         }
+//        if (owner == null) {
+//            throw new IllegalStateException("Must set lifecycle owner first.");
+//        }
+        Log.d(TAG, "start: ");
         if (isInIdleState()) {
             startPlay();
         } else if (isInPlaybackState()) {
@@ -213,6 +222,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      * 第一次播放
      */
     protected void startPlay() {
+        Log.d(TAG, "startPlay: ");
         if (!mEnableParallelPlay) {
             VideoViewManager.getInstance().release();
         }
@@ -221,7 +231,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
         if (checkNetwork()) return;
 
         if (mEnableAudioFocus) {
-            mAudioManager = (AudioManager) getContext().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+            mAudioManager = (AudioManager) AppUtils.app().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
             mAudioFocusHelper = new AudioFocusHelper();
         }
 
@@ -261,7 +271,16 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      * 初始化播放器
      */
     protected void initPlayer() {
-        mMediaPlayer = mPlayerFactory.createPlayer(owner);
+        Log.d(TAG, "initPlayer: ");
+        if (owner != null && owner.get() == null) {
+            throw new RuntimeException("Activity may be destroyed.");
+        }
+
+        if (owner == null) {
+            mMediaPlayer = mPlayerFactory.createPlayer(null);
+        } else {
+            mMediaPlayer = mPlayerFactory.createPlayer(owner.get());
+        }
         mMediaPlayer.bindVideoView(this);
         mMediaPlayer.initPlayer();
         mMediaPlayer.setEnableMediaCodec(mEnableMediaCodec);
@@ -270,6 +289,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
     }
 
     protected void addDisplay() {
+        Log.d(TAG, "addDisplay: ");
         if (mRenderView != null) {
             mPlayerContainer.removeView(mRenderView.getView());
             mRenderView.release();
@@ -290,6 +310,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      * 开始准备播放（直接播放）
      */
     protected void startPrepare(boolean needReset) {
+        Log.d(TAG, "startPrepare: needReset: " + needReset);
         if (TextUtils.isEmpty(mCurrentUrl) && mAssetFileDescriptor == null) return;
         if (needReset) mMediaPlayer.reset();
         if (mAssetFileDescriptor != null) {
@@ -306,6 +327,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      * 播放状态下开始播放
      */
     protected void startInPlaybackState() {
+        Log.d(TAG, "startInPlaybackState: ");
         mMediaPlayer.start();
         setPlayState(STATE_PLAYING);
     }
@@ -315,6 +337,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      */
     @Override
     public void pause() {
+        Log.d(TAG, "pause: ");
         if (isPlaying()) {
             mMediaPlayer.pause();
             setPlayState(STATE_PAUSED);
@@ -329,6 +352,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      */
     @Override
     public void resume() {
+        Log.d(TAG, "resume: ");
         if (isInPlaybackState()
                 && !mMediaPlayer.isPlaying()) {
             mMediaPlayer.start();
@@ -339,21 +363,13 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
         }
     }
 
-    /**
-     * 停止播放
-     *
-     * @deprecated 使用 {@link #release()} 代替
-     */
-    @Deprecated
-    public void stopPlayback() {
-        release();
-    }
 
     /**
      * 释放播放器
      */
     @Override
     public void release() {
+        Log.d(TAG, "release: video view");
         VideoViewManager.getInstance().removeVideoView(this);
         if (mVideoController != null) {
             mVideoController.hideStatusView();
@@ -365,6 +381,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
             if (mAssetFileDescriptor != null) {
                 try {
                     mAssetFileDescriptor.close();
+                    mAssetFileDescriptor = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -372,17 +389,21 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
             setKeepScreenOn(false);
             if (mAudioFocusHelper != null) {
                 mAudioFocusHelper.abandonFocus();
+                mAudioFocusHelper = null;
             }
             mOrientationEventListener.disable();
 
             if (mRenderView != null) {
                 mPlayerContainer.removeView(mRenderView.getView());
                 mRenderView.release();
+                mRenderView = null;
             }
 
             mIsLockFullScreen = false;
             mCurrentPosition = 0;
             setPlayState(STATE_IDLE);
+            mCurrentUrl = null;
+            assetFileName = null;
         }
     }
 
@@ -419,8 +440,20 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      */
     @Override
     public void replay(boolean resetPosition) {
+        Log.d(TAG, "replay: resetPosition: " + resetPosition);
         if (resetPosition) {
             mCurrentPosition = 0;
+        }
+        if (assetFileName != null) {
+            try {
+                if (mAssetFileDescriptor != null) {
+                    mAssetFileDescriptor.close();
+                    mAssetFileDescriptor = null;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            createAssetFileDescriptor(assetFileName);
         }
         addDisplay();
         startPrepare(true);
@@ -454,6 +487,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      */
     @Override
     public void seekTo(long pos) {
+        Log.d(TAG, "seekTo: pos: " + pos);
         if (isInPlaybackState()) {
             mMediaPlayer.seekTo(pos);
         }
@@ -516,6 +550,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
      */
     @Override
     public void onCompletion() {
+        Log.d(TAG, "onCompletion: ");
         setPlayState(STATE_PLAYBACK_COMPLETED);
         setKeepScreenOn(false);
         mCurrentPosition = 0;
@@ -609,9 +644,23 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
 
     /**
      * 用于播放assets里面的视频文件
+     * 仅仅可以播放一次
      */
     public void setAssetFileDescriptor(AssetFileDescriptor fd) {
         this.mAssetFileDescriptor = fd;
+    }
+
+    /**
+     * 可以调用replay()重复播放
+     */
+    public void createAssetFileDescriptor(String assetFileName) {
+        try {
+            this.mAssetFileDescriptor = getResources().getAssets().openFd(assetFileName);
+            this.assetFileName = assetFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            setPlayState(STATE_ERROR);
+        }
     }
 
     /**
@@ -1168,6 +1217,7 @@ public class VideoView extends FrameLayout implements MediaPlayerControl, Player
 
             startRequested = false;
             mAudioManager.abandonAudioFocus(this);
+            mAudioManager = null;
         }
     }
 

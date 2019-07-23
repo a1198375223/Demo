@@ -14,11 +14,12 @@ import java.util.Arrays;
 import tv.danmaku.ijk.media.player.misc.IMediaDataSource;
 
 public class RawDataSourceProvider implements IMediaDataSource {
-    private static final String TAG = "RawDataSourceProvider";
+    private static final String TAG = "RawDataSourceProvider@";
     private AssetFileDescriptor mDescriptor;
     private byte[] mMediaBytes;
 
     public RawDataSourceProvider(AssetFileDescriptor descriptor) {
+        Log.d(TAG, "create");
         this.mDescriptor = descriptor;
     }
 
@@ -87,6 +88,7 @@ public class RawDataSourceProvider implements IMediaDataSource {
 
 
     public static RawDataSourceProvider create(Context context, Uri uri) {
+        Log.d(TAG, "static create.");
         try {
             AssetFileDescriptor fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");
             return new RawDataSourceProvider(fileDescriptor);

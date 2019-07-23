@@ -16,6 +16,7 @@ import androidx.lifecycle.LifecycleOwner;
 import com.example.commonlibrary.utils.AppUtils;
 import com.example.commonlibrary.utils.ThreadPool;
 import com.example.media.common.AbstractPlayer;
+import com.example.media.factory.IjkPlayerFactory;
 
 import java.io.IOException;
 import java.util.Map;

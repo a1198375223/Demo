@@ -76,18 +76,18 @@ public class ApiActivity extends AppCompatActivity {
     }
 
     public void skipToDefinitionPlayer(View view) {
-//        startActivity(new Intent(this, DefinitionPlayerActivity.class));
+        startActivity(new Intent(this, DefinitionPlayerActivity.class));
     }
 
     public void skipToScreenShotPlayer(View view) {
-//        startActivity(new Intent(this, ScreenShotPlayerActivity.class));
+        startActivity(new Intent(this, ScreenShotPlayerActivity.class));
     }
 
     public void skipToRawOrAssets(View view) {
-//        startActivity(new Intent(this, PlayRawAssetsActivity.class));
+        startActivity(new Intent(this, PlayRawAssetsActivity.class));
     }
 
     public void multiPlayer(View view) {
-//        startActivity(new Intent(this, ParallelPlayActivity.class));
+        startActivity(new Intent(this, ParallelPlayActivity.class));
     }
 }

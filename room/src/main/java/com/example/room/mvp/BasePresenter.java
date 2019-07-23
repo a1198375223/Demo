@@ -15,8 +15,10 @@ public abstract class BasePresenter<V extends IView> implements IPresenter {
     protected WeakReference<LifecycleOwner> owner;
 
     public BasePresenter(LifecycleOwner owner) {
-        owner.getLifecycle().addObserver(this);
-        this.owner = new WeakReference<>(owner);
+        if (owner != null) {
+            owner.getLifecycle().addObserver(this);
+            this.owner = new WeakReference<>(owner);
+        }
     }
 
 
