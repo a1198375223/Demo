@@ -14,6 +14,12 @@ buildscript {
     }
 }
 
+ext {
+    compileSdkVersion = 29       // depending on your sdk version
+    buildToolsVersion = "29.0.1" // depending on your build tools version
+    targetSdkVersion = 29        // depending on your sdk version
+}
+
 allprojects {
     repositories {
         google()
