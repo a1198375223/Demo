@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.media.R;
-import com.example.media.activity.bean.VideoBean;
+import com.example.media.bean.VideoBean;
 import com.example.media.adapter.SeamlessRecyclerViewAdapter;
 import com.example.media.common.IntentKeys;
 import com.example.media.common.OnVideoViewStateChangeListener;

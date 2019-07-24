@@ -1,4 +1,4 @@
-package com.example.media.activity.bean;
+package com.example.media.bean;
 
 public class VideoBean {
     private String title;

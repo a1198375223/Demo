@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.media.R;
-import com.example.media.activity.bean.VideoBean;
+import com.example.media.bean.VideoBean;
 import com.example.media.view.StandardVideoController;
 import com.example.media.view.VideoView;
 

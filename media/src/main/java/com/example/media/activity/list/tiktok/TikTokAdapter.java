@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.media.R;
-import com.example.media.activity.bean.VideoBean;
+import com.example.media.bean.VideoBean;
 
 import org.jetbrains.annotations.NotNull;
 

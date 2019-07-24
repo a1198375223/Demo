@@ -1,6 +1,6 @@
 package com.example.media.utils;
 
-import com.example.media.activity.bean.VideoBean;
+import com.example.media.bean.VideoBean;
 
 import java.util.ArrayList;
 import java.util.List;
