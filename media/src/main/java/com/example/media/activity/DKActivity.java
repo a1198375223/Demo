@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +21,15 @@ import com.example.media.activity.api.ApiActivity;
 import com.example.media.activity.api.PlayerActivity;
 import com.example.media.activity.extend.ExtendActivity;
 import com.example.media.activity.list.ListActivity;
+import com.example.media.activity.pip.PIPDemoActivity;
 import com.example.media.common.VideoViewConfig;
 import com.example.media.common.VideoViewManager;
 import com.example.media.exo.ExoMediaPlayerFactory;
 import com.example.media.factory.AbsPlayerFactory;
 import com.example.media.factory.IjkPlayerFactory;
 import com.example.media.media_player.AndroidMediaPlayerFactory;
+import com.example.media.utils.PIPManager;
+import com.example.media.utils.VideoCacheManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -92,12 +96,12 @@ public class DKActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.close_float_window) {
-//            PIPManager.getInstance().stopFloatWindow();
-//            PIPManager.getInstance().reset();
+            PIPManager.getInstance().stopFloatWindow();
+            PIPManager.getInstance().reset();
         } else if (itemId == R.id.clear_cache) {
-//            if (VideoCacheManager.clearAllCache(this)) {
-//                Toast.makeText(this, "清除缓存成功", Toast.LENGTH_SHORT).show();
-//            }
+            if (VideoCacheManager.clearAllCache(this)) {
+                Toast.makeText(this, "清除缓存成功", Toast.LENGTH_SHORT).show();
+            }
         }
 
         //切换播放核心，不推荐这么做，我这么写只是为了方便测试
@@ -156,6 +160,6 @@ public class DKActivity extends AppCompatActivity {
     }
 
     public void pip(View view) {
-//        startActivity(new Intent(this, PIPDemoActivity.class));
+        startActivity(new Intent(this, PIPDemoActivity.class));
     }
 }

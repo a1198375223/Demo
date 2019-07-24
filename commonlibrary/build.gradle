@@ -103,12 +103,12 @@ dependencies {
     api "androidx.camera:camera-camera2:${camerax_version}"
 
     // Navigation library
-    def nav_version = '2.1.0-alpha06'
+    def nav_version = '2.1.0-beta02'
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // viewpager2
-    api 'androidx.viewpager2:viewpager2:1.0.0-alpha06'
+    api 'androidx.viewpager2:viewpager2:1.0.0-beta02'
 
     // direct share
     api 'androidx.sharetarget:sharetarget:1.0.0-alpha02'
@@ -171,4 +171,6 @@ dependencies {
 
     //缓存
     api 'com.danikula:videocache:2.7.1'
+
+    api 'com.yanzhenjie.permission:support:2.0.1'
 }
