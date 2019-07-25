@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidxdemo.R;
 import com.example.androidxdemo.activity.anim.AnimationActivity;
 import com.example.androidxdemo.activity.annotation.AnnotationActivity;
+import com.example.androidxdemo.activity.bar.BarActivity;
 import com.example.androidxdemo.activity.bubble.FlowActivity;
 import com.example.androidxdemo.activity.camera.CameraActivity;
 import com.example.androidxdemo.activity.image.ImageActivity;
@@ -45,6 +46,7 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_OPENGL = 12;
     public static final int ITEM_ANNOTATION = 13;
     public static final int ITEM_ANIMATION = 14;
+    public static final int ITEM_BAR_UTILS = 15;
 
 
 
@@ -72,7 +74,8 @@ public class UtilActivityMain extends AppCompatActivity {
                 "浮动activity",
                 "OpenGL",
                 "注解测试",
-                "动画");
+                "动画",
+                "状态栏测试");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -132,6 +135,10 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_ANIMATION:
                     Intent animationIntent = new Intent(UtilActivityMain.this, AnimationActivity.class);
                     startActivity(animationIntent);
+                    break;
+                case ITEM_BAR_UTILS:
+                    Intent barIntent = new Intent(UtilActivityMain.this, BarActivity.class);
+                    startActivity(barIntent);
                     break;
             }
         });

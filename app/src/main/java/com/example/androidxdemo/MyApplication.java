@@ -4,6 +4,7 @@ package com.example.androidxdemo;
 import android.os.Build;
 import android.util.Log;
 
+import com.blankj.utilcode.util.Utils;
 import com.example.androidxdemo.base.image.FrescoConfig;
 import com.example.commonlibrary.utils.AppUtils;
 import com.example.commonlibrary.utils.NotificationUtils;
@@ -30,6 +31,9 @@ public class MyApplication extends RoomApplication {
 
         // 用来初始化AppUtils方便全局使用
         AppUtils.setApp(this);
+
+        Utils.init(this);
+
         // 初始化Fresco
         Fresco.initialize(this, FrescoConfig.getImagePipelineConfig(this));
         // 初始化线程池
