@@ -175,6 +175,21 @@
             android:name=".activity.pip.PIPListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".gsy.GsyMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".gsy.activity.simple.SimpleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gsy.activity.simple.SimplePlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.pip.AndroidOPiPActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

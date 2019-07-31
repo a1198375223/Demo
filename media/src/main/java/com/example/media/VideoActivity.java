@@ -16,6 +16,7 @@ import com.example.media.activity.MediaPlayerActivity;
 import com.example.media.activity.MediaPlayerVideoActivity;
 import com.example.media.activity.PlayMovieActivity;
 import com.example.media.activity.TextureFromCameraActivity;
+import com.example.media.gsy.GsyMainActivity;
 
 import java.util.Arrays;
 
@@ -65,6 +66,11 @@ public class VideoActivity extends AppCompatActivity {
         findViewById(R.id.dk_player).setOnClickListener(view -> {
             Intent dkPlayer = new Intent(VideoActivity.this, DKActivity.class);
             startActivity(dkPlayer);
+        });
+
+        findViewById(R.id.gsy_player).setOnClickListener(view -> {
+            Intent gsyIntent = new Intent(VideoActivity.this, GsyMainActivity.class);
+            startActivity(gsyIntent);
         });
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

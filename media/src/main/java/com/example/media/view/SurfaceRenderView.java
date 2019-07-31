@@ -14,6 +14,18 @@ import com.example.media.common.AbstractPlayer;
 import com.example.media.common.IRenderView;
 import com.example.media.common.MeasureHelper;
 
+/**
+ * SurfaceView专门提供了嵌入视图层级的绘制界面, 开发者可以控制该界面像Size等的形式, 能保证界面在屏幕上的正确位置.
+ * 局限：
+ * 1. 由于是独立的一层View, 更像是独立的一个Window, 不能加上动画
+ * 2. 两个SurfaceView不能相互覆盖
+ *
+ * SurfaceView可以用过SurfaceHolder.addCallback()在子线程中更新UI
+ *
+ * 优点：
+ * 1. 使用双缓冲机制，播放视频时画面更流畅
+ * 2. 可以在一个独立的线程中进行绘制，不会影响主线程
+ */
 public class SurfaceRenderView extends SurfaceView implements IRenderView, SurfaceHolder.Callback {
     private static final String TAG = "SurfaceRenderView";
     private MeasureHelper mMeasureHelper;

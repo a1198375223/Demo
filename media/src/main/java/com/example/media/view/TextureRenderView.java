@@ -14,6 +14,12 @@ import com.example.media.common.AbstractPlayer;
 import com.example.media.common.IRenderView;
 import com.example.media.common.MeasureHelper;
 
+/**
+ * TextureView更像是一般的View, 像TextView那样能被缩放、平移，也能加上动画。
+ * TextureView只能在开启硬件加速的Window中使用， 但是TextureView在Android4.0之后的API中才能使用
+ *
+ * TextureView可以通过TextureView.setSurfaceTextureListener()在子线程中更新UI
+ */
 @SuppressLint("ViewConstructor")
 public class TextureRenderView extends TextureView implements IRenderView, TextureView.SurfaceTextureListener {
     private MeasureHelper mMeasureHelper;

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 
-
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -148,7 +147,6 @@ dependencies {
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'com.google.android.gms:play-services-cast-framework:17.0.0'
     api 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 //    api files('/home/mi/AndroidStudioProjects/AndroidXDemo/app/libs/core-3.4.0.jar')
 
     // 二维码

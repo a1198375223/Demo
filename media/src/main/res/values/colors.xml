@@ -6,4 +6,8 @@
     <color name="dkplayer_theme_color">#39C5BB</color>
     <color name="dkplayer_theme_color_translucent">#9939C5BB</color>
     <color name="dkplayer_background_color">#96000000</color>
+    <color name="style_color">#005fff</color><!--主题色-->
+    <color name="bottom_container_bg">#99000000</color><!--主题色-->
+    <color name="transparent">#00000000</color>
+    <color name="btn_rect_alpha">#56b3b3b3</color>
 </resources>
