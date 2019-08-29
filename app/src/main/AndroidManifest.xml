@@ -120,6 +120,8 @@
         <activity android:name=".activity.image.qr_code.QRCodeTestActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
 
+        <activity android:name=".activity.util.UtilActivity" />
+
         <!-- 调整二维码扫描界面为竖屏 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
@@ -157,6 +159,40 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+
+        <activity android:name=".activity.service.ServiceActivity" />
+        <activity android:name=".activity.service.aidl.AIDLActivity"
+            android:process=":aidl"/>
+
+
+        <service
+            android:name=".activity.service.aidl.AIDLService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":service">
+            <intent-filter>
+                <action android:name="com.example.androidxdemo.action" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".activity.service.messenger.MessengerActivity"
+            android:process=":messenger"/>
+
+        <activity android:name=".activity.test.visibility.VisibleActivity" />
+        <activity android:name=".activity.test.TestActivity" />
+
+
+        <service
+            android:name=".activity.service.messenger.MessengerService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":MService">
+            <intent-filter>
+                <action android:name="com.example.androidxdemo.MessengerService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
     </application>
 
     

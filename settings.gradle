@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':dagger2', ':room', ':media', ':opengles', ':javaLib', ':processorLib', ':ijkplayer-java', ':ijkplayer-x86_64', ':ijkplayer-x86', ':ijkplayer-armv5', ':ijkplayer-arm64', ':ijkplayer-exo', ':ijkplayer-armv7a', ':constraintlayout2'
+include ':app', ':commonlibrary', ':dagger2', ':room', ':media', ':opengles', ':javaLib', ':processorLib', ':ijkplayer-java', ':ijkplayer-x86_64', ':ijkplayer-x86', ':ijkplayer-armv5', ':ijkplayer-arm64', ':ijkplayer-exo', ':ijkplayer-armv7a', ':constraintlayout2', ':sdk'

@@ -48,8 +48,10 @@ dependencies {
     annotationProcessor project(':processorLib')
     api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+
+    api 'junit:junit:4.12'
 
     // support 包依赖
     api 'androidx.appcompat:appcompat:1.1.0-rc01'
@@ -95,6 +97,7 @@ dependencies {
     // okhttp3
     api 'com.squareup.okhttp3:logging-interceptor:4.0.1'
     api 'com.squareup.okio:okio:2.2.2'
+    api 'com.squareup.okhttp3:okhttp:4.0.1'
 
     // cameraX
     def camerax_version = "1.0.0-alpha03"
@@ -143,7 +146,7 @@ dependencies {
     api 'com.google.android.exoplayer:extension-ima:2.10.2'
     api 'com.google.android.exoplayer:extension-rtmp:2.10.2'
     api 'com.google.android.exoplayer:extension-cast:2.10.2'
-    api 'com.google.android.material:material:1.1.0-alpha08'
+    api 'com.google.android.material:material:1.1.0-alpha09'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'com.google.android.gms:play-services-cast-framework:17.0.0'
     api 'com.jakewharton:butterknife:10.1.0'
@@ -173,4 +176,7 @@ dependencies {
     api 'com.yanzhenjie.permission:support:2.0.1'
 
     api 'com.blankj:utilcode:1.24.2'
+
+
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.4.0'
 }

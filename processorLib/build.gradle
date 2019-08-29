@@ -3,7 +3,7 @@ apply plugin: 'java-library'
 dependencies {
     implementation project(':javaLib')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.google.auto.service:auto-service:1.0-rc2' //引入auto-service实现注解自动注册
+    api 'com.google.auto.service:auto-service:1.0-rc4' //引入auto-service实现注解自动注册
     api 'com.squareup:javapoet:1.11.1' //使用开源框架javapoet生成Java类
 }
 

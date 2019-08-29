@@ -18,12 +18,17 @@ import com.example.androidxdemo.activity.camera.CameraActivity;
 import com.example.androidxdemo.activity.image.ImageActivity;
 import com.example.androidxdemo.activity.main.adapter.UtilRecyclerViewAdapter;
 import com.example.androidxdemo.activity.receiver.ReceiverActivity;
+import com.example.androidxdemo.activity.service.ServiceActivity;
 import com.example.androidxdemo.activity.share.ShareActivity;
+import com.example.androidxdemo.activity.test.TestActivity;
+import com.example.androidxdemo.activity.test.visibility.VisibleActivity;
+import com.example.androidxdemo.activity.util.UtilActivity;
 import com.example.androidxdemo.activity.view.ViewActivity;
 import com.example.dagger2.DaggerActivity;
 import com.example.media.VideoActivity;
 import com.example.opengles.OpenGLESActivity;
 import com.example.room.RoomActivity;
+import com.wali.live.SDKMainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +52,9 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_ANNOTATION = 13;
     public static final int ITEM_ANIMATION = 14;
     public static final int ITEM_BAR_UTILS = 15;
+    public static final int ITEM_SDK = 16;
+    public static final int ITEM_UTIL = 17;
+    public static final int ITEM_TEST = 18;
 
 
 
@@ -75,7 +83,10 @@ public class UtilActivityMain extends AppCompatActivity {
                 "OpenGL",
                 "注解测试",
                 "动画",
-                "状态栏测试");
+                "状态栏测试",
+                "SDK测试",
+                "启动外部activity",
+                "用来测试");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -101,6 +112,8 @@ public class UtilActivityMain extends AppCompatActivity {
                     startActivity(receiverIntent);
                     break;
                 case ITEM_SERVICE:
+                    Intent serviceIntent = new Intent(UtilActivityMain.this, ServiceActivity.class);
+                    startActivity(serviceIntent);
                     break;
                 case ITEM_BROADCAST:
                     break;
@@ -139,6 +152,18 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_BAR_UTILS:
                     Intent barIntent = new Intent(UtilActivityMain.this, BarActivity.class);
                     startActivity(barIntent);
+                    break;
+                case ITEM_SDK:
+                    Intent sdkIntent = new Intent(UtilActivityMain.this, SDKMainActivity.class);
+                    startActivity(sdkIntent);
+                    break;
+                case ITEM_UTIL:
+                    Intent utilIntent = new Intent(UtilActivityMain.this, UtilActivity.class);
+                    startActivity(utilIntent);
+                    break;
+                case ITEM_TEST:
+                    Intent testIntent = new Intent(UtilActivityMain.this, TestActivity.class);
+                    startActivity(testIntent);
                     break;
             }
         });

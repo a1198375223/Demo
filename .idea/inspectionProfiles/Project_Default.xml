@@ -34,7 +34,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="BindingAdapter(&quot;app:srcCompat&quot;),JvmStatic,Retention(RetentionPolicy.CLASS),Retention(RetentionPolicy.SOURCE),Retention(RetentionPolicy.RUNTIME)" />
+      <option name="myAdditionalJavadocTags" value="BindingAdapter(&quot;app:srcCompat&quot;),JvmStatic,Retention(RetentionPolicy.CLASS),Retention(RetentionPolicy.SOURCE),Retention(RetentionPolicy.RUNTIME),FormUrlEncoded,GET,POST,PUT,DELETE,PATCH,HEAD,OPTIONS,HTTP,Headers,Header,Url,QueryMap,Query,Path,PartMap,Part,FiledMap,Filed,Body,Streaming,Multipart" />
     </inspection_tool>
     <inspection_tool class="MoveFieldAssignmentToInitializer" enabled="false" level="INFORMATION" enabled_by_default="false" />
   </profile>

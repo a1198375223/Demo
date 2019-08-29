@@ -1,0 +1,67 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wali.live">
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- for mta statistics, not necessary-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application>
+        <activity
+            android:name=".SDKMainActivity" />
+
+        <activity
+            android:name=".wechat.WeChatSdkActivity" />
+
+        <activity
+            android:name=".wechat.UserInfoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MMTheme.Basic"/>
+
+        <activity
+            android:name=".wechat.ShowFromWXActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MMTheme.Basic"/>
+
+        <activity
+            android:name=".wechat.SendToWXActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:launchMode="singleTask"
+            android:theme="@style/MMTheme.Basic"/>
+
+        <activity
+            android:name=".wechat.GetFromWXActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MMTheme.Basic"/>
+
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="net.sourceforge.simcpux"
+            android:launchMode="singleTask">
+        </activity>
+
+        <receiver
+            android:name=".wechat.common.AppRegister"
+            android:permission="com.tencent.mm.plugin.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".wechat.SubscribeMessageActivity"
+            android:label="@string/subscribe_message"
+            android:theme="@style/MMTheme.Basic"/>
+
+        <activity android:name=".wechat.SubscribeMiniProgramMsgActivity"
+            android:label="@string/subscribe_message"
+            android:theme="@style/MMTheme.Basic"/>
+    </application>
+</manifest>
