@@ -25,6 +25,7 @@ import com.example.androidxdemo.activity.test.visibility.VisibleActivity;
 import com.example.androidxdemo.activity.util.UtilActivity;
 import com.example.androidxdemo.activity.view.ViewActivity;
 import com.example.dagger2.DaggerActivity;
+import com.example.dialog.DialogActivity;
 import com.example.media.VideoActivity;
 import com.example.opengles.OpenGLESActivity;
 import com.example.room.RoomActivity;
@@ -55,6 +56,7 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_SDK = 16;
     public static final int ITEM_UTIL = 17;
     public static final int ITEM_TEST = 18;
+    public static final int ITEM_DIALOG = 19;
 
 
 
@@ -86,7 +88,8 @@ public class UtilActivityMain extends AppCompatActivity {
                 "状态栏测试",
                 "SDK测试",
                 "启动外部activity",
-                "用来测试");
+                "用来测试",
+                "dialog测试");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -164,6 +167,10 @@ public class UtilActivityMain extends AppCompatActivity {
                 case ITEM_TEST:
                     Intent testIntent = new Intent(UtilActivityMain.this, TestActivity.class);
                     startActivity(testIntent);
+                    break;
+                case ITEM_DIALOG:
+                    Intent intent = new Intent(UtilActivityMain.this, DialogActivity.class);
+                    startActivity(intent);
                     break;
             }
         });

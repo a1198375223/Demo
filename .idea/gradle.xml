@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/commonlibrary" />
             <option value="$PROJECT_DIR$/constraintlayout2" />
             <option value="$PROJECT_DIR$/dagger2" />
+            <option value="$PROJECT_DIR$/dialog" />
             <option value="$PROJECT_DIR$/ijkplayer-arm64" />
             <option value="$PROJECT_DIR$/ijkplayer-armv5" />
             <option value="$PROJECT_DIR$/ijkplayer-armv7a" />
@@ -28,6 +29,7 @@
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>
