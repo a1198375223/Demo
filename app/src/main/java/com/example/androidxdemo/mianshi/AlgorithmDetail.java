@@ -6,6 +6,10 @@ import android.util.Pair;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -590,6 +594,130 @@ public class AlgorithmDetail {
     }
 
     // 输入一个字符串，按字典序打印出该字符串中字符的所有排列
+    public static List<String> permutation(String string) {
+        List<String> result = new ArrayList<>();
+        if (string.length() == 0) {
+            return result;
+        }
+        fun(string.toCharArray(), result, 0);
+        Collections.sort(result);
+        return result;
+    }
+
+    private static void fun(char[] ch, List<String> list, int i) {
+        if (i == ch.length - 1) {
+            if (!list.contains(new String(ch))) {
+                list.add(String.valueOf(ch));
+            }
+        } else {
+            for (int j = i; j < ch.length; j++) {
+                swap(ch, i, j);
+                fun(ch, list, i + 1);
+                swap(ch, i, j);
+            }
+        }
+    }
+
+    private static void swap(char[] str, int i, int j) {
+        if (i != j) {
+            char t = str[i];
+            str[i] = str[j];
+            str[j] = t;
+        }
+    }
+
+    // 在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，
+    // 输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+    private static boolean isContainNumber(int[][] sortArrays, int num) {
+        int allHang = sortArrays.length;
+        int allRaw = sortArrays[0].length;
+
+        int currentRaw = 0;
+        int currentHang = allHang - 1;
+        while (currentHang >= 0 && currentRaw < allRaw) {
+            int temp = sortArrays[currentHang][currentRaw];
+            if (temp > num) {
+                currentHang--;
+            } else if (temp < num) {
+                currentRaw++;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 找出数组中有出现的次数超过数组长度的一半的数字，如果不存在则输出0。例如输入一个长度为9的数组
+    // {1,2,3,2,2,2,5,4,2}，由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。
+    public static int findOverHalfNum(int[] array) {
+        int half = array.length / 2;
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        int result = 0;
+        int max = 0;
+        for (int key : array) {
+            if (hashMap.containsKey(key)) {
+                int value = hashMap.get(key);
+                hashMap.put(key, ++value);
+                if (max < value) {
+                    max = value;
+                    result = key;
+                }
+            } else {
+                hashMap.put(key, 1);
+                if (max < 1) {
+                    max = 1;
+                    result = key;
+                }
+            }
+        }
+        if (max > half) {
+            return result;
+        }
+        return 0;
+    }
+
+
+    // 输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组
+    // {3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+    // 通过一个比较器对数据进行两两比较，规则为若a＋b<b+a，则a排在前
+    private static String minNum(int[] array) {
+        List<Integer> list = new ArrayList<>();
+        for (int item : array) {
+            list.add(item);
+        }
+
+        Collections.sort(list, (integer, t1) -> {
+            String item1 = integer + "" + t1;
+            String item2 = t1 + "" + integer;
+            return item1.compareTo(item2);
+        });
+        StringBuilder result = new StringBuilder();
+        for (int item : list) {
+            result.append(item);
+        }
+        return result.toString();
+    }
+
+    // 输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的
+    private static List<Integer> getSumS(int[] array, int s) {
+        int start = 0;
+        int end = array.length - 1;
+
+        while (start < end) {
+            if (array[start] + array[end] < s) {
+                start++;
+            } else if (array[start] + array[end] > s) {
+                end--;
+            } else {
+                List<Integer> list = new ArrayList<>();
+                list.add(array[start]);
+                list.add(array[end]);
+                return list;
+            }
+        }
+        return null;
+    }
+
 
 
     public static void main(String[] args) {
@@ -771,6 +899,30 @@ public class AlgorithmDetail {
         System.out.println("find only appearing once char:(" + findFirstAppearingOnceChar(text) + ") from text: " + text);
         System.out.println("----------------------------------");
         System.out.println("find only appearing once char position:(" + findFirstAppearingOnceCharPosition(text) + ") from text: " + text);
+        System.out.println("----------------------------------");
+        System.out.println(permutation("abcd"));
+        System.out.println("----------------------------------");
+        int[][] arrays = new int[][] {
+                {1, 2, 6, 8, 10, 12, 14},
+                {3, 5, 7, 10, 12, 18, 21},
+                {7, 8, 10, 12, 15, 19, 25},
+                {9, 10, 13, 15, 17, 25, 27},
+                {10, 14, 18, 21, 24, 26, 30},
+                {12, 17, 19, 22, 25, 27, 33}
+        };
+        int num = 31;
+        System.out.println(num + " is container in arrays? " + isContainNumber(arrays, num));
+        System.out.println("----------------------------------");
+        int[] allArrays = new int[]{1, 2, 3, 2, 2, 2, 5, 4, 2};
+        System.out.println("over half in array=" + findOverHalfNum(allArrays));
+        System.out.println("----------------------------------");
+        int[] arrayNum = new int[]{4, 512, 17, 24, 46};
+        System.out.println("min num in merge array:" + minNum(arrayNum));
+        System.out.println("----------------------------------");
+
+        int[] arrayS = new int[]{4, 12, 17, 24, 46};
+        int s = 21;
+        System.out.println("in array find " + s + " result=" + getSumS(arrayS, s));
         System.out.println("----------------------------------");
     }
 }
