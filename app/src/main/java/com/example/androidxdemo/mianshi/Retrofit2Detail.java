@@ -45,6 +45,11 @@ import retrofit2.http.POST;
  * 总结
  * 1. retrofit2内部使用的是动态代理的方式来实现与okhttp3的通信的. 将封装好的请求交给okhttp3来处理
  * 2. 在调用接口的网络请求方法的时候, retrofit2会解析注解来将该方法翻译成网络请求数据, 返回一个okhttp3的Call
+ *
+ *
+ * 源码分析:
+ * 1. retrofit.create(xxx.class);
+ *
  */
 public class Retrofit2Detail {
 

@@ -2,6 +2,7 @@ package com.example.androidxdemo.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +17,12 @@ import com.example.androidxdemo.activity.bar.BarActivity;
 import com.example.androidxdemo.activity.bubble.FlowActivity;
 import com.example.androidxdemo.activity.camera.CameraActivity;
 import com.example.androidxdemo.activity.image.ImageActivity;
+import com.example.androidxdemo.activity.launch.LaunchModeActivity;
 import com.example.androidxdemo.activity.main.adapter.UtilRecyclerViewAdapter;
 import com.example.androidxdemo.activity.receiver.ReceiverActivity;
 import com.example.androidxdemo.activity.service.ServiceActivity;
 import com.example.androidxdemo.activity.share.ShareActivity;
 import com.example.androidxdemo.activity.test.TestActivity;
-import com.example.androidxdemo.activity.test.visibility.VisibleActivity;
 import com.example.androidxdemo.activity.util.UtilActivity;
 import com.example.androidxdemo.activity.view.ViewActivity;
 import com.example.dagger2.DaggerActivity;
@@ -57,6 +58,8 @@ public class UtilActivityMain extends AppCompatActivity {
     public static final int ITEM_UTIL = 17;
     public static final int ITEM_TEST = 18;
     public static final int ITEM_DIALOG = 19;
+    public static final int ITEM_SELF = 20;
+    public static final int ITEM_ACTIVITY = 21;
 
 
 
@@ -89,7 +92,9 @@ public class UtilActivityMain extends AppCompatActivity {
                 "SDK测试",
                 "启动外部activity",
                 "用来测试",
-                "dialog测试");
+                "dialog测试",
+                "启动自己",
+                "测试singleTask为主页的启动模式");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -172,9 +177,36 @@ public class UtilActivityMain extends AppCompatActivity {
                     Intent intent = new Intent(UtilActivityMain.this, DialogActivity.class);
                     startActivity(intent);
                     break;
+                case ITEM_SELF:
+                    Intent selfIntent = new Intent(UtilActivityMain.this, UtilActivityMain.class);
+                    startActivity(selfIntent);
+                    break;
+                case ITEM_ACTIVITY:
+                    Intent launchIntent = new Intent(UtilActivityMain.this, LaunchModeActivity.class);
+                    startActivity(launchIntent);
+                    break;
             }
         });
         mAdapter.setData(mData);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d("SingleTask test->", "onNewIntent: UtilActivityMain");
+        Intent newIntent = getIntent();
+        if (newIntent == null) {
+            Log.d("SingleTask test->", "onNewIntent: getIntent == null");
+        } else {
+            Log.d("SingleTask test->", "onNewIntent: getIntent != null");
+        }
+
+        if (intent == null) {
+            Log.d("SingleTask test->", "onNewIntent: intent == null");
+        } else {
+            Log.d("SingleTask test->", "onNewIntent: intent != null");
+        }
     }
 }

@@ -11,7 +11,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 算法题总结：
@@ -718,6 +721,74 @@ public class AlgorithmDetail {
         return null;
     }
 
+    public static int[][] setOfStacks(int[][] ope, int size) {
+        // write code here
+        int index = size - 1;
+        int raw = ope.length * ope[0].length / size;
+        int rawIndex = raw -1;
+        int[][] stackArray = new int[raw][size];
+        int[] stack = createStack(size);
+        for (int i = 0; i < ope.length; i++) {
+            switch (ope[i][0]) {
+                case 1:
+                    if (index < 0) {
+                        stackArray[rawIndex--] = stack;
+                        stack = createStack(size);
+                        index = size - 1;
+                    }
+                    stack[index--] = ope[i][1];
+                    break;
+                case 2:
+                    if (index > size - 1) {
+                        stack = stackArray[rawIndex++];
+                        index = size - 1;
+                    }
+                    stack[index++] = -1;
+                    break;
+                default:
+            }
+        }
+        return stackArray;
+    }
+
+    private static int[] createStack(int size) {
+        int[] stack = new int[size];
+        for (int i = 0; i < stack.length; i++) {
+            stack[i] = -1;
+        }
+        return stack;
+    }
+
+
+    //两路归并算法，两个排好序的子序列合并为一个子序列
+    public void merge(int []a,int left,int mid,int right){
+        int []tmp=new int[a.length];//辅助数组
+        int p1=left,p2=mid+1,k=left;//p1、p2是检测指针，k是存放指针
+
+        while(p1<=mid && p2<=right){
+            if(a[p1]<=a[p2])
+                tmp[k++]=a[p1++];
+            else
+                tmp[k++]=a[p2++];
+        }
+
+        while(p1<=mid) tmp[k++]=a[p1++];//如果第一个序列未检测完，直接将后面所有元素加到合并的序列中
+        while(p2<=right) tmp[k++]=a[p2++];//同上
+
+        //复制回原素组
+        for (int i = left; i <=right; i++)
+            a[i]=tmp[i];
+    }
+
+    public void mergeSort(int [] a,int start,int end){
+        if(start<end){//当子序列中只有一个元素时结束递归
+            int mid=(start+end)/2;//划分子序列
+            mergeSort(a, start, mid);//对左侧子序列进行递归排序
+            mergeSort(a, mid+1, end);//对右侧子序列进行递归排序
+            merge(a, start, mid, end);//合并
+        }
+    }
+
 
 
     public static void main(String[] args) {
@@ -924,5 +995,34 @@ public class AlgorithmDetail {
         int s = 21;
         System.out.println("in array find " + s + " result=" + getSumS(arrayS, s));
         System.out.println("----------------------------------");
+        int x = 0;
+        int y = 0;
+        Scanner in = new Scanner(System.in);
+        if (in.hasNextLine()) {
+            String ch = in.nextLine();
+            String[] group = ch.split(";");
+            for (String item : group) {
+                if (item.matches("[WSAD]([1-9]*)")){
+                    char head = item.charAt(0);
+                    int number = Integer.valueOf(item.substring(1));
+                    switch (head) {
+                        case 'W':
+                            y += number;
+                            break;
+                        case 'S':
+                            y -= number;
+                            break;
+                        case 'A':
+                            x -= number;
+                            break;
+                        case 'D':
+                            x += number;
+                            break;
+                        default:
+                    }
+                }
+            }
+        }
+        System.out.println(x + " , " + y);
     }
 }

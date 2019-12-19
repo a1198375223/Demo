@@ -43,7 +43,8 @@
         android:theme="@style/AppTheme"
         android:allowBackup="true"
         android:hardwareAccelerated="true">
-        <activity android:name=".activity.main.UtilActivityMain">
+        <activity android:name=".activity.main.UtilActivityMain"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -181,6 +182,21 @@
 
         <activity android:name=".activity.test.visibility.VisibleActivity" />
         <activity android:name=".activity.test.TestActivity" />
+
+        <activity android:name=".activity.launch.LaunchModeActivity"
+            android:launchMode="standard"/>
+        <activity
+            android:name=".activity.launch.SingleInstanceActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activity.launch.SingleTaskActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.launch.SingleTopActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.launch.StandardActivity"
+            android:launchMode="standard" />
 
 
         <service

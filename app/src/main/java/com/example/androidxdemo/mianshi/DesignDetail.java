@@ -1,5 +1,7 @@
 package com.example.androidxdemo.mianshi;
 
+import java.io.Serializable;
+
 /**
  * 1. 谈谈MVC、MVP和MVVM，好在哪里，不好在哪里？
  * MVP的含义：
@@ -21,4 +23,23 @@ package com.example.androidxdemo.mianshi;
  *      直接和UI打交道，在业务处理过程中简单方便很多。
  */
 public class DesignDetail {
+
+    public static class Singleton implements Serializable {
+        private volatile static Singleton singleton;
+        private Singleton (){}
+        public static Singleton getSingleton() {
+            if (singleton == null) {
+                synchronized (Singleton.class) {
+                    if (singleton == null) {
+                        singleton = new Singleton();
+                    }
+                }
+            }
+            return singleton;
+        }
+
+        private Object readResolve() {
+            return singleton;
+        }
+    }
 }

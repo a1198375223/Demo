@@ -1,5 +1,11 @@
 package com.example.androidxdemo.mianshi;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
+import androidx.annotation.Nullable;
+
 /**
  * Service
  *
@@ -56,6 +62,21 @@ package com.example.androidxdemo.mianshi;
  * 10. 如何保证Service不被杀死？
  *    1. 在onDestory()中发送广播开启自己
  *    2. 开启两个服务，相互监听，相互启动
+ *    3. 在onStartCommand()返回Service.START_STICKY
+ *    4. 提升Service的优先级
  */
 public class ServiceDetail {
+    class MyService extends Service {
+
+        @Override
+        public int onStartCommand(Intent intent, int flags, int startId) {
+            return Service.START_STICKY;
+        }
+
+        @Nullable
+        @Override
+        public IBinder onBind(Intent intent) {
+            return null;
+        }
+    }
 }
