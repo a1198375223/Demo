@@ -198,6 +198,8 @@
             android:name=".activity.launch.StandardActivity"
             android:launchMode="standard" />
 
+        <activity android:name=".activity.test.DialogActivityTest" />
+
 
         <service
             android:name=".activity.service.messenger.MessengerService"

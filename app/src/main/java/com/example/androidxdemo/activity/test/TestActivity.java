@@ -21,5 +21,10 @@ public class TestActivity extends AppCompatActivity {
             Intent visibleIntent = new Intent(this, VisibleActivity.class);
             startActivity(visibleIntent);
         });
+
+        findViewById(R.id.dialog_button).setOnClickListener(view -> {
+            Intent testDialogIntent = new Intent(this, DialogActivityTest.class);
+            startActivity(testDialogIntent);
+        });
     }
 }

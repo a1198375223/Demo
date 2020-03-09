@@ -14,6 +14,12 @@
             android:id="@+id/VisibleActivity"
             android:text="测试Visibility"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_button"
+            android:text="测试dialog会不会影响activity的生命周期" />
+
 
     </LinearLayout>
 
